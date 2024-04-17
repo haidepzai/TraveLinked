@@ -1,0 +1,100 @@
+<div class="container">
+   <div class="row justify-content-center">
+      <h1 class="text-center">PRIVATE <span style="color: #ff4081">MESSAGE</span></h1>
+   </div>
+   <hr />
+   <div class="row mb-4">
+      <button [routerLink]="['/chat']" type="button" mat-raised-button color="primary" class="public-chat-btn">
+         {{ 'CHAT.PUBLIC_CHAT' | translate }}
+      </button>
+   </div>
+   <div class="row">
+      <div class="col-md-4">
+         <h2>Userlist:</h2>
+         <mat-form-field class="example-form-field">
+            <input (input)="searchUser(userInput.value)" matInput type="text" placeholder="Search User..." #userInput />
+            <button mat-button matSuffix mat-icon-button (click)="searchUser(userInput.value)">
+               <mat-icon>search</mat-icon>
+            </button>
+         </mat-form-field>
+         <mat-spinner *ngIf="userListLoading"></mat-spinner>
+         <mat-list *ngIf="!userListLoading">
+            <div *ngIf="!isSearching">
+               <mat-list-item
+                  [ngClass]="{ active: selectedUser === user }"
+                  *ngFor="let user of contactedUsers.slice(0, 5)"
+                  (click)="clickUserName(user)"
+               >
+                  <img [src]="getProfilePicture(user)" alt="profile photo" class="profilePic" />
+                  {{ user.fullName }}
+                  <div *ngFor="let unreadMessage of unreadMessages">
+                     <span
+                        *ngIf="unreadMessage.hasRead === false && unreadMessage.clientOne === user._id"
+                        class="badge badge-pill badge-danger"
+                        >1</span
+                     >
+                  </div>
+                  <mat-divider></mat-divider>
+               </mat-list-item>
+            </div>
+            <mat-list-item
+               [ngClass]="{ active: selectedUser === user }"
+               *ngFor="let user of userSearchList"
+               (click)="clickUserName(user)"
+            >
+               <img [src]="getProfilePicture(user)" alt="profile photo" class="profilePic" />
+               {{ user.fullName }}
+               <mat-divider></mat-divider>
+            </mat-list-item>
+         </mat-list>
+      </div>
+      <div class="col-md-8" *ngIf="!receiver">
+         <h1 class="selectHint">SELECT A USER YOU WANT TO WRITE</h1>
+      </div>
+      <div class="col-md-8" *ngIf="receiver">
+         <h2 *ngIf="receiver">Message: {{ receiver.fullName }}</h2>
+         <div class="row justify-content-center">
+            <mat-spinner *ngIf="isLoading"></mat-spinner>
+            <div
+               #chatBox
+               id="chatBox"
+               *ngIf="!isLoading"
+               class="card card-body bg-light mb-2 mt-4"
+               style="height: 400px; padding: 15px"
+            >
+               <div *ngFor="let item of messageArray">
+                  <div *ngIf="item.user === userName" class="row justify-content-end mt-2">
+                     <div class="col-6 my-messages">
+                        <mat-card matTooltip="{{ item.date | date : 'MMM d, y, h:mm a' }}">
+                           <strong>{{ item.user }} : </strong> {{ item.message }}
+                        </mat-card>
+                     </div>
+                  </div>
+                  <div *ngIf="item.user !== userName" class="row mt-2">
+                     <div class="col-6">
+                        <mat-card matTooltip="{{ item.date | date : 'MMM d, y, h:mm a' }}">
+                           <strong>{{ item.user }} : </strong> {{ item.message }}
+                        </mat-card>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="input-group input-group-lg mt-4">
+               <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="messageText"
+                  (keydown.enter)="sendMessage()"
+                  placeholder="Type your message here..."
+               />
+               <button mat-mini-fab (click)="sendMessage()">
+                  <mat-icon>send</mat-icon>
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>
+   <hr />
+</div>

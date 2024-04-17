@@ -1,0 +1,84 @@
+.map {
+   height: fit-content;
+   width: 100%;
+}
+
+.mat-mini-fab {
+   position: absolute;
+   right: 20px;
+   top: 4px;
+   z-index: 999;
+   box-shadow: none !important;
+}
+
+input:focus {
+   box-shadow: none;
+   outline: none;
+}
+
+h1 {
+   font-size: 3em;
+   margin-top: 1.5em;
+   margin-bottom: 1.5em;
+}
+
+mat-form-field {
+   width: 100%;
+}
+
+.tours-card {
+   margin-bottom: 5px;
+}
+
+.loading {
+   position: fixed;
+   z-index: 999;
+   overflow: show;
+   margin: auto;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   width: 50px;
+   height: 50px;
+}
+
+.overlay {
+   background: #e9e9e9;
+   opacity: 0.5;
+}
+
+.poi-img {
+   width: 200px;
+   height: 100px;
+   object-fit: cover;
+   display: block;
+}
+
+.submit-button {
+   border-radius: 30px;
+}
+
+.poi-button {
+   margin-top: 10px;
+   width: fit-content;
+   height: fit-content;
+}
+
+.area-button {
+   margin: 10px;
+   margin-left: auto;
+   margin-right: auto;
+   border-radius: 30px;
+}
+
+/* Responsive */
+@media only screen and (max-width: 760px) {
+   h1 {
+      line-height: 1;
+   }
+   .submit-button {
+      margin-left: auto;
+      margin-right: auto;
+   }
+}

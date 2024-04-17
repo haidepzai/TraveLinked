@@ -1,0 +1,147 @@
+.card-img {
+   height: 400px;
+   object-fit: cover;
+   border-radius: 30px;
+}
+
+.card {
+   border: none !important;
+}
+
+.card-img-overlay {
+   background-color: rgba(0, 0, 0, 0.3);
+   border-radius: 30px;
+}
+
+h1 {
+   font-size: 4em;
+}
+
+h2 {
+   font-size: 2em;
+}
+
+.header-div {
+   border-top: 1px solid #dadce0;
+}
+
+.mat-card-image {
+   object-fit: cover;
+   height: 200px;
+}
+
+.mat-card-header {
+   height: 75px;
+}
+
+.tours-card {
+   margin-top: 24px;
+   border: 1px solid #d8d8d8;
+}
+
+.mat-mini-fab {
+   box-shadow: none !important;
+}
+
+.map-div,
+.map {
+   width: 100%;
+}
+
+.tour-div {
+   overflow-y: scroll;
+   height: 500px;
+}
+
+.card-button {
+   position: absolute;
+   top: 20px;
+   right: 20px;
+}
+
+.tour-menu-btn,
+.like-button.not-liked {
+   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.like-button.is-liked {
+   transition: background-color 300ms linear;
+   background-color: crimson;
+}
+
+.tour-menu-btn:hover {
+   transition: background-color 300ms linear;
+   background-color: #ff4081;
+}
+
+.like-button:hover {
+   transition: background-color 300ms linear;
+   background-color: crimson;
+}
+
+.like-button.is-liked:hover {
+   transition: background-color 300ms linear;
+   background-color: rgb(255, 35, 79);
+}
+
+.share-btn,
+.join-btn {
+   border-radius: 30px !important;
+}
+
+::ng-deep .snackbar-success {
+   color: black;
+   text-align: center;
+   background: #86cd96;
+}
+
+::ng-deep .snackbar-error {
+   color: white;
+   text-align: center;
+   background: #f44336;
+}
+
+.nav-item:hover {
+   cursor: pointer;
+}
+
+.nav-link {
+   font-size: 24px;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+   background-color: #3f51b5;
+   border-radius: 30px;
+}
+
+.user-name {
+   cursor: pointer;
+   text-decoration: underline;
+   transition: color 300ms linear;
+}
+
+.user-name:hover {
+   color: crimson !important;
+}
+
+/* Responsive */
+@media only screen and (max-width: 760px) {
+   .tour-detail-container,
+   h2 {
+      padding-left: 10px;
+      padding-right: 10px;
+   }
+
+   h1 {
+      line-height: 1;
+      font-size: 3em;
+   }
+}
+
+.poi-img {
+   width: 200px;
+   height: 100px;
+   object-fit: cover;
+   display: block;
+}

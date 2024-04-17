@@ -1,0 +1,1 @@
+# Path for static files (html, css)

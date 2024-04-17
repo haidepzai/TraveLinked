@@ -1,0 +1,67 @@
+mat-spinner {
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.mat-card-image {
+   object-fit: cover;
+   height: 200px;
+}
+
+.mat-card-header {
+   height: 75px;
+}
+
+.tours-card {
+   margin-top: 24px;
+   border: 1px solid #d8d8d8;
+}
+
+.mat-mini-fab {
+   box-shadow: none !important;
+}
+
+.add-btn {
+   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.add-btn:hover {
+   transition: background-color 300ms linear;
+   background-color: #3f51b5;
+}
+
+.mat-raised-button {
+   border-radius: 30px;
+   box-shadow: none !important;
+}
+
+h1 {
+   font-size: 3em;
+   margin-bottom: 5vh;
+   margin-top: 5vh;
+}
+
+.card-img-overlay {
+   padding: 10px !important;
+}
+
+.nav-item:hover {
+   cursor: pointer;
+}
+
+.nav-link {
+   font-size: 24px;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+   background-color: #3f51b5;
+   border-radius: 30px;
+}
+
+/* Responsive */
+@media only screen and (max-width: 760px) {
+   h1 {
+      line-height: 1;
+   }
+}

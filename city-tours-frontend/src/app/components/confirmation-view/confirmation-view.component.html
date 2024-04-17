@@ -1,0 +1,17 @@
+<div class="container">
+   <h1 class="text-center" *ngIf="!isAlreadyActivated && !isError">
+      {{ 'ACCOUNT_CONFIRMATION.CONFIRMED' | translate | uppercase }}!
+      <span style="color: #ff4081">{{ 'WELCOME' | translate | uppercase }}!</span>
+   </h1>
+   <h1 class="text-center" *ngIf="isAlreadyActivated && isError">
+      {{ 'ACCOUNT_CONFIRMATION.ALREADY_CONFIRMED' | translate | uppercase }}!
+   </h1>
+   <h1 class="text-center" *ngIf="!isAlreadyActivated && isError">
+      {{ 'ACCOUNT_CONFIRMATION.ERROR' | translate | uppercase }}!
+   </h1>
+   <div class="row justify-content-center mt-4">
+      <button mat-raised-button color="accent" [routerLink]="'/'">
+         {{ 'BACK_TO_HOME' | translate }} <mat-icon>home</mat-icon>
+      </button>
+   </div>
+</div>

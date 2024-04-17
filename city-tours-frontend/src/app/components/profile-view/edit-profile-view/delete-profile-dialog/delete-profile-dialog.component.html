@@ -1,0 +1,20 @@
+<h2>{{ 'DELETE_PROFILE_MODAL.TITLE' | translate | uppercase }}</h2>
+<mat-dialog-content>
+   {{ 'DELETE_PROFILE_MODAL.CONTENT' | translate }}
+   <form class="example-form">
+      <mat-form-field class="example-full-width">
+         <mat-label>{{ 'DELETE_PROFILE_MODAL.PASSWORD' | translate }}</mat-label>
+         <input #password type="password" matInput [formControl]="passwordFormControl" placeholder="Password" />
+         <mat-error *ngIf="passwordFormControl.hasError('required')">
+            {{ 'DELETE_PROFILE_MODAL.PASSWORD_IS' | translate }}
+            <strong>{{ 'DELETE_PROFILE_MODAL.REQUIRED' | translate | lowercase }}</strong>
+         </mat-error>
+      </mat-form-field>
+   </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+   <button mat-raised-button color="warn" (click)="deleteProfile(password.value)">
+      {{ 'DELETE_PROFILE_MODAL.DELETE' | translate }}
+   </button>
+   <button mat-raised-button color="basic" [mat-dialog-close]>{{ 'CANCEL' | translate }}</button>
+</mat-dialog-actions>

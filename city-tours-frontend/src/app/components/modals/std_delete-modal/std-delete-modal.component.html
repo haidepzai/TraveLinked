@@ -1,0 +1,25 @@
+<div class="modal-header">
+   <h1 class="modal-title" id="modal-title">{{ 'MODAL.ATTENTION' | translate | uppercase }} !</h1>
+   <button type="button" class="close" aria-describedby="modal-title" (click)="onClose()">
+      <span aria-hidden="true">&times;</span>
+   </button>
+</div>
+<div class="modal-body">
+   <p>
+      <strong
+         >{{ contentStringID | translate }}
+         <span class="text-primary" *ngIf="additionalString">{{ additionalString }}</span> ?</strong
+      >
+   </p>
+   <p *ngIf="contentStringID !== 'MODAL.DELETE_IMAGE' && contentStringID !== 'MODAL.DELETE_COMMENT'">
+      {{ 'MODAL.DELETE_WARNING' | translate }}
+   </p>
+   <br />
+   <p class="text-danger">{{ 'MODAL.CANNOT_BE_UNDONE' | translate }}</p>
+</div>
+<div class="modal-footer">
+   <button type="button" class="btn btn-outline-secondary" (click)="confirmDelete(false)">
+      {{ 'MODAL.CANCEL' | translate }}
+   </button>
+   <button type="button" class="btn btn-danger" (click)="confirmDelete(true)">{{ 'MODAL.DELETE' | translate }}</button>
+</div>

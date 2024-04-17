@@ -1,0 +1,38 @@
+<div class="container">
+   <h1 class="text-center">
+      {{ 'TOP_RATED' | translate | uppercase }}
+      <span style="color: #ff4081">{{ 'TOURS' | translate | uppercase }}</span>
+   </h1>
+   <mat-spinner *ngIf="isLoading"></mat-spinner>
+   <div class="row tours-view" *ngIf="!isLoading">
+      <div class="col-md-6 col-lg-4" *ngFor="let tour of topTours">
+         <mat-card [ngClass]="onDelBtn ? 'inactive-card' : 'active-card'" (click)="goToTourOverview(tour._id)">
+            <mat-card-header>
+               <div
+                  *ngIf="tourPicService.getUserProfilePicOfTour(tour._id!)"
+                  mat-card-avatar
+                  class="header-image"
+                  [ngStyle]="{ 'background-image': 'url(' + tourPicService.getUserProfilePicOfTour(tour._id!) + ')' }"
+               ></div>
+               <mat-card-title>{{ tour.name }}</mat-card-title>
+               <mat-card-subtitle>{{ 'BY' | translate | lowercase }} {{ tour.userName }}</mat-card-subtitle>
+               <mat-card-subtitle>{{ 'STOPS' | translate }}: {{ tour.sights.length }}</mat-card-subtitle>
+               <mat-card-subtitle>{{ 'TOTAL_LIKES' | translate }}: {{ tour.likes }}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image [src]="getTitleImage(tour.titleImage!.imageURL)" alt="Photo of {{ tour.name }}" />
+            <mat-card-content>
+               <p>
+                  {{ tour.description | limitTo : '300' }}
+               </p>
+            </mat-card-content>
+         </mat-card>
+      </div>
+   </div>
+   <div class="row justify-content-center">
+      <button type="button" mat-raised-button class="show-more-btn">
+         {{ 'SHOW_MORE' | translate }}
+      </button>
+   </div>
+</div>
+<app-active-tours></app-active-tours>
+<app-top-travelers></app-top-travelers>

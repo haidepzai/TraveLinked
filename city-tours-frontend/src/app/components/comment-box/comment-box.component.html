@@ -1,0 +1,70 @@
+<hr />
+<div class="col-12 col-sm-12 header">
+   <h4>{{ 'COMMENTS.COMMENTS_TITLE' | translate }} ({{ comments.length }})</h4>
+</div>
+
+<div class="col-12 col-sm-12">
+   <div class="comment-form">
+      <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+         <div class="form-group">
+            <textarea
+               class="form-control"
+               placeholder="Leave a comment"
+               formControlName="comment"
+               [ngClass]="{
+                  'is-invalid': submitted && commentForm.controls['comment'].errors
+               }"
+            ></textarea>
+            <div class="invalid-feedback" *ngIf="submitted && commentForm.controls['comment'].errors">
+               <div *ngIf="commentForm.controls['comment'].errors.required">
+                  {{ 'COMMENTS.COMMENT_REQUIRED' | translate }}
+               </div>
+               <div *ngIf="commentForm.controls['comment'].errors.minlength">
+                  {{ 'COMMENTS.COMMENT_MIN' | translate }}
+               </div>
+               <div *ngIf="commentForm.controls['comment'].errors.maxlength">
+                  {{ 'COMMENTS.COMMENT_MAX' | translate }}
+               </div>
+            </div>
+         </div>
+         <div class="form-group">
+            <button type="submit" mat-raised-button color="primary">
+               {{ 'COMMENTS.POST_COMMENT' | translate }}
+            </button>
+         </div>
+      </form>
+   </div>
+
+   <div class="comments" *ngIf="comments.length > 0">
+      <h6 *ngIf="comments.length < 1">{{ 'COMMENTS.NO_COMMENTS_FOUND' | translate }}</h6>
+      <ul *ngIf="comments.length > 0">
+         <li *ngFor="let post of comments; let i = index">
+            <div class="col-12 col-sm-12 comment-container">
+               <h4>
+                  <span (click)="goToUserProfile(post.userId)" class="user-name">{{ post.userName }}</span>
+                  {{ 'COMMENTS.WROTE' | translate }}:
+               </h4>
+               <p>{{ post.commentTxt }}</p>
+               <div class="actions">
+                  <span>{{ 'COMMENTS.POSTED_AT' | translate }}: {{ post.currentDate | date : 'dd/MM/yyyy' }}</span>
+                  <span class="divider"></span>
+                  <button
+                     mat-mini-fab
+                     color="warn"
+                     (click)="removeComment(post._id)"
+                     *ngIf="isAdminMode || post.userId === userId"
+                     class="del-btn"
+                  >
+                     <mat-icon id="del-icon">delete_outline</mat-icon>
+                  </button>
+                  <button mat-mini-fab (click)="likeComment(post._id)" *ngIf="post.userId !== userId" class="like-btn">
+                     <mat-icon id="like-icon">favorite</mat-icon>
+                  </button>
+                  <span class="divider"></span>
+                  <span style="font-weight: bold"> Likes: {{ post.likes }}</span>
+               </div>
+            </div>
+         </li>
+      </ul>
+   </div>
+</div>

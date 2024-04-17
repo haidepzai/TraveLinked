@@ -1,0 +1,24 @@
+<div class="container">
+   <div class="card-columns mt-5">
+      <div *ngIf="isOwnTour" class="card text-center add-card" (click)="openDialog()">
+         <mat-icon class="add-btn">add_circle</mat-icon>
+      </div>
+
+      <div *ngFor="let img of photoGallery; let i = index" class="card content" (click)="lightbox.open(i)">
+         <div class="content-overlay"></div>
+         <img [src]="showImage(img.imageURL)" alt="" class="card-img" />
+         <button
+            mat-mini-fab
+            color="warn"
+            id="deleteButton"
+            *ngIf="isOwnTour"
+            (click)="deleteImage(img, tourId); $event.stopPropagation()"
+         >
+            <mat-icon id="deleteIcon"> delete </mat-icon>
+         </button>
+         <div class="content-details fadeIn-bottom">
+            <h3 class="content-title">{{ img.imageDescription }}</h3>
+         </div>
+      </div>
+   </div>
+</div>

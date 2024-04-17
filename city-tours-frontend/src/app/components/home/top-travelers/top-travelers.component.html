@@ -1,0 +1,32 @@
+<div class="container">
+   <h1 class="text-center">
+      {{ 'MOST_FOLLOWED' | translate | uppercase }}
+      <span style="color: #ff4081">{{ 'TRAVELERS' | translate | uppercase }}</span>
+   </h1>
+   <mat-spinner *ngIf="isLoading"></mat-spinner>
+   <div class="row travelers-view" *ngIf="!isLoading">
+      <div class="col-md-6 col-lg-4 user-card" *ngFor="let user of topUsers">
+         <div class="cards-container">
+            <div class="card card-one active-card" (click)="goToUserProfile(user._id)">
+               <header>
+                  <div class="avatar">
+                     <img src="{{ getUsersProfilePicture(user.profilePicture?.imageURL) }}" alt="user.fullName" />
+                  </div>
+               </header>
+               <h3>{{ user.fullName }}</h3>
+               <div class="desc">{{ user.aboutMe | limitTo : '300' }}</div>
+               <footer>
+                  <p class="text-white">{{ 'Location' | translate }}: {{ user.hometown }}</p>
+                  <p class="text-white">Followers: {{ user.followers?.length }}</p>
+               </footer>
+            </div>
+            <div class="clear"></div>
+         </div>
+      </div>
+   </div>
+   <div class="row justify-content-center">
+      <button type="button" mat-raised-button class="show-more-btn">
+         {{ 'SHOW_MORE' | translate }}
+      </button>
+   </div>
+</div>

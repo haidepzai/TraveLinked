@@ -1,0 +1,25 @@
+<!-- .container-fluid for a full width container -->
+<footer>
+   <div class="container-fluid bg-black py-3">
+      <div class="row">
+         <div class="col-md-12 text-center">
+            <a [routerLink]="['/']" class="px-2">
+               <mat-icon>home</mat-icon>
+            </a>
+            <a href="#" target="_blank" class="px-2">
+               <mat-icon>facebook</mat-icon>
+            </a>
+            <a (click)="openContactForm()" target="_blank" class="px-2">
+               <mat-icon>mail</mat-icon>
+            </a>
+         </div>
+         <div class="col-md-12 text-center mt-3 text-white">
+            <p>
+               Copyright &copy; <span id="year">{{ currentYear }}</span> TraveLinked |
+               <a (click)="openImpressum()" class="text-white">{{ 'IMPRINT' | translate }}</a> |
+               <a [routerLink]="['/privacy-policy']" class="text-white">{{ 'PRIVACY_POLICY' | translate }}</a>
+            </p>
+         </div>
+      </div>
+   </div>
+</footer>

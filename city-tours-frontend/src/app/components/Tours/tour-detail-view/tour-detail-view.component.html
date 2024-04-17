@@ -1,0 +1,181 @@
+<div class="container">
+   <div *ngIf="isLoading" class="row justify-content-center">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+   </div>
+
+   <div *ngIf="!isLoading" class="row mt-4 mb-4 tour-detail-container">
+      <div class="card bg-light text-white flex-grow-1">
+         <img class="card-img" src="{{ imgSrc }}" alt="Card image" />
+         <div class="card-img-overlay d-flex flex-column justify-content-center">
+            <button
+               mat-mini-fab
+               aria-label="Example icon button with a filter list icon"
+               class="like-button card-button"
+               *ngIf="!isOwnTour"
+               [ngClass]="hasLiked ? 'is-liked' : 'not-liked'"
+               (click)="onLike(tour._id)"
+            >
+               <mat-icon>favorite</mat-icon>
+            </button>
+            <button
+               mat-mini-fab
+               aria-label="Example icon button with a filter list icon"
+               class="tour-menu-btn card-button"
+               *ngIf="isOwnTour"
+               [matMenuTriggerFor]="tourMenu"
+            >
+               <mat-icon class="btn-icon">more_vert</mat-icon>
+            </button>
+            <mat-menu #tourMenu="matMenu">
+               <button mat-menu-item color="primary" (click)="onEdit(tour._id)">
+                  <mat-icon class="btn-icon">edit</mat-icon>
+                  {{ 'EDIT_TOUR' | translate }}
+               </button>
+               <button mat-menu-item color="basic" (click)="onDelete(tour._id, tour.name)">
+                  <mat-icon class="btn-icon">delete</mat-icon>
+                  {{ 'DELETE_TOUR' | translate }}
+               </button>
+            </mat-menu>
+            <div class="align-self-center mx-auto justify-content-center text-container">
+               <h1 class="font-weight-bold text-center mb-4">
+                  {{ tour.name | uppercase }}
+               </h1>
+               <h2 class="font-weight-bold text-center">
+                  {{ tour.startDate | date : 'mediumDate' }} -
+                  {{ tour.endDate | date : 'mediumDate' }}
+               </h2>
+               <h2 class="text-center font-weight-bold">Total Likes: {{ likes }}</h2>
+               <div class="row justify-content-center">
+                  <button
+                     *ngIf="isOwnTour"
+                     type="button"
+                     mat-raised-button
+                     color="accent"
+                     class="share-btn"
+                     (click)="shareTour()"
+                  >
+                     {{ 'SHARE' | translate }}
+                  </button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="row justify-content-center mt-5 header-div">
+      <h2 class="text-center mt-5" *ngIf="isOwnTour">
+         {{ 'YOUR_INDIVIDUAL' | translate | uppercase }}
+         <span style="color: #ff4081">{{ 'TOUR' | translate | uppercase }}</span>
+      </h2>
+      <h2 class="text-center mt-5" *ngIf="!isOwnTour">
+         {{ 'TOUR' | translate | uppercase }} {{ 'FROM' | translate | uppercase }}
+         <span class="user-name" (click)="goToUserProfile(tour.creator)" style="color: #ff4081">{{
+            userName | uppercase
+         }}</span>
+      </h2>
+   </div>
+   <div class="row justify-content-center mb-4" *ngIf="!isLoading">
+      <p class="lead">
+         {{ tour.description }}
+      </p>
+   </div>
+
+   <div class="row justify-content-center mb-4 mt-4">
+      <ul class="nav nav-pills justify-content-center">
+         <li class="nav-item">
+            <a class="nav-link" [ngClass]="{ active: overview === 1 }" (click)="overview = 1">{{
+               'OVERVIEW' | translate
+            }}</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" [ngClass]="{ active: overview === 2 }" (click)="overview = 2">{{
+               'TODO.THINGS_TO_DO' | translate
+            }}</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" [ngClass]="{ active: overview === 3 }" (click)="overview = 3">{{
+               'PHOTO_GALLERY' | translate
+            }}</a>
+         </li>
+      </ul>
+   </div>
+
+   <div *ngIf="overview === 1" class="row">
+      <div class="col-sm-10"></div>
+      <div class="col-sm-2">
+         <button mat-mini-fab color="primary" (click)="changeShowRoute()" style="float: right">
+            <mat-icon *ngIf="!showRoute"> directions </mat-icon>
+            <mat-icon *ngIf="showRoute"> directions_off </mat-icon>
+         </button>
+      </div>
+   </div>
+
+   <div *ngIf="!isLoading && overview === 2">
+      <app-todo [todos]="todos" [isOwnTour]="isOwnTour"></app-todo>
+   </div>
+
+   <div *ngIf="!isLoading && overview === 3">
+      <app-photo-gallery
+         [photoGallery]="photoGallery"
+         (photoEmitter)="photoGallery = $event"
+         [isOwnTour]="isOwnTour"
+      ></app-photo-gallery>
+   </div>
+
+   <div *ngIf="!isLoading && overview === 1" class="row tours-view">
+      <div class="col-lg-4 tour-div">
+         <mat-card class="tours-card col-md-6 col-lg-12" *ngFor="let poi of tour.sights">
+            <img
+               *ngIf="poi.imagePath"
+               mat-card-image
+               src="{{ poi.imagePath }}"
+               alt="Photo of {{ poi.name }}"
+               referrerpolicy="no-referrer"
+            />
+            <img
+               *ngIf="poi.titleImage"
+               mat-card-image
+               [src]="getImageOfPoi(poi.titleImage!.imageURL)"
+               alt="Photo of {{ poi.name }}"
+               referrerpolicy="no-referrer"
+            />
+            <mat-card-header class="mt-4">
+               <mat-card-title>
+                  {{ poi.name }}
+               </mat-card-title>
+               <mat-card-subtitle>
+                  <span *ngIf="poi.formatted_address !== null">{{ poi.formatted_address }}</span>
+                  <span *ngIf="poi.vicinity !== null">{{ poi.vicinity }}</span>
+               </mat-card-subtitle>
+            </mat-card-header>
+         </mat-card>
+      </div>
+
+      <div class="col-lg-8 mb-4 mt-4 map-div" *ngIf="!isLoading">
+         <google-map class="map" [zoom]="zoom" [center]="center" [options]="options" width="100%" height="500px">
+            <map-marker
+               #somemarker="mapMarker"
+               *ngFor="let poi of tour.sights"
+               [position]="poi.geometry.location"
+               [options]="markerOptions"
+               [title]="poi.name"
+               (mapClick)="openInfo(somemarker, poi)"
+            >
+            </map-marker>
+            <map-info-window>
+               <div *ngIf="poi !== null && poi !== undefined" style="width: 200px; height: fit-content">
+                  <h3>{{ poi.name }}</h3>
+                  <p *ngIf="poi.formatted_address !== null" style="word-wrap: break-word">
+                     {{ poi.formatted_address }}
+                  </p>
+                  <p *ngIf="poi.vicinity !== null">{{ poi.vicinity }}</p>
+                  <img *ngIf="poi.imagePath" src="{{ poi.imagePath }}" class="poi-img" alt="Point of Interest" />
+                  <img *ngIf="poi.titleImage" src="{{ imgSrc }}" class="poi-img" alt="Point of Interest" />
+               </div>
+            </map-info-window>
+         </google-map>
+      </div>
+   </div>
+
+   <app-comment-box [comments]="comments"></app-comment-box>
+</div>

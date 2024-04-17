@@ -1,0 +1,119 @@
+<div class="container">
+   <ul class="nav nav-pills justify-content-center">
+      <li class="nav-item">
+         <a class="nav-link" [ngClass]="{ active: !secretPoiView }" (click)="secretPoiView = false">{{
+            'POIS' | translate
+         }}</a>
+      </li>
+      <li class="nav-item">
+         <a class="nav-link" [ngClass]="{ active: secretPoiView }" (click)="secretPoiView = true">{{
+            'SECRET_POIS' | translate
+         }}</a>
+      </li>
+   </ul>
+
+   <div *ngIf="locationName !== '' && !secretPoiView">
+      <h1 class="text-center">
+         {{ 'SIGHTSEEING_IN' | translate }} <span style="color: #ff4081">{{ locationName }}</span>
+      </h1>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <div class="row justify-content-center mb-4" *ngIf="!isLoading">
+         <p class="col-lg-12 text-center lead">
+            {{ 'CURRENT_TEMPERATURE' | translate }}: {{ weatherInfo?.main?.temp }}°C
+         </p>
+         <img src="http://openweathermap.org/img/w/{{ iconCode }}.png" alt="Weather Icon" />
+      </div>
+      <div *ngIf="!isLoading" class="row tours-view">
+         <div class="col-sm-4" *ngFor="let poi of listOfPoi">
+            <mat-card class="card tours-card">
+               <img
+                  class="card-img"
+                  *ngIf="poi.imagePath"
+                  mat-card-image
+                  src="{{ poi.imagePath }}"
+                  alt="Photo of "
+                  referrerpolicy="no-referrer"
+               />
+               <div class="card-img-overlay d-flex flex-row-reverse">
+                  <button
+                     mat-mini-fab
+                     class="add-btn"
+                     (click)="onAdd(poi)"
+                     aria-label="Example icon button with a filter list icon"
+                  >
+                     <mat-icon class="btn-icon">add_circle</mat-icon>
+                  </button>
+               </div>
+               <mat-card-header class="mt-4">
+                  <mat-card-title>
+                     {{ poi.name }}
+                  </mat-card-title>
+                  <mat-card-subtitle>
+                     <span *ngIf="poi.formatted_address !== null">{{ poi.formatted_address }}</span>
+                     <span *ngIf="poi.vicinity !== null">{{ poi.vicinity }}</span>
+                  </mat-card-subtitle>
+               </mat-card-header>
+               <!--
+                <mat-card-actions>
+                  <button mat-mini-fab color="primary" (click)="onAdd(poi)" aria-label="Example icon button with a filter list icon">
+                    <mat-icon class="btn-icon">add_circle</mat-icon>
+                  </button>
+                </mat-card-actions>
+              -->
+            </mat-card>
+         </div>
+      </div>
+      <div *ngIf="!isLoading" class="row justify-content-center mt-5">
+         <button
+            *ngIf="nextPageToken !== undefined"
+            type="button"
+            mat-raised-button
+            color="accent"
+            class="show-more-btn"
+            (click)="showMore()"
+         >
+            {{ 'SHOW_MORE' | translate }}
+         </button>
+      </div>
+   </div>
+
+   <div *ngIf="locationName !== '' && secretPoiView">
+      <h1 class="text-center">
+         {{ 'SECRET' | translate }} <span style="color: #ff4081">{{ 'POIS' | translate }}</span>
+      </h1>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <div *ngIf="!isLoading" class="row tours-view">
+         <div class="col-sm-4" *ngFor="let poi of listOfOwnPoi">
+            <mat-card class="card tours-card">
+               <img
+                  class="card-img"
+                  *ngIf="poi.titleImage"
+                  mat-card-image
+                  [src]="getImageOfPoi(poi.titleImage!.imageURL)"
+                  alt="Photo of "
+                  referrerpolicy="no-referrer"
+               />
+               <div class="card-img-overlay d-flex flex-row-reverse">
+                  <button
+                     mat-mini-fab
+                     class="add-btn"
+                     (click)="onAdd(poi)"
+                     aria-label="Example icon button with a filter list icon"
+                  >
+                     <mat-icon class="btn-icon">add_circle</mat-icon>
+                  </button>
+               </div>
+               <mat-card-header class="mt-4">
+                  <mat-card-title>
+                     {{ poi.name }}
+                  </mat-card-title>
+                  <mat-card-subtitle>
+                     <span *ngIf="poi.formatted_address !== null">{{ poi.formatted_address }}</span>
+                     <span *ngIf="poi.vicinity !== null">{{ poi.vicinity }}</span>
+                  </mat-card-subtitle>
+               </mat-card-header>
+            </mat-card>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="container">
+   <div class="row justify-content-center">
+      <h1 class="text-center">
+         {{ 'CHAT.CONNECT_WITH_OTHER' | translate | uppercase }}
+         <span style="color: #ff4081">{{ 'CHAT.TRAVELERS' | translate | uppercase }}!</span>
+      </h1>
+   </div>
+   <hr />
+   <div class="row mb-4">
+      <button [routerLink]="['/private-chat']" type="button" mat-raised-button color="primary" class="private-chat-btn">
+         {{ 'CHAT.PRIVATE_CHAT' | translate }}
+      </button>
+   </div>
+   <div class="row">
+      <div class="col-sm-5">
+         <label for="roomInput">{{ 'CHAT.CHOOSE_ROOM' | translate }}</label>
+         <select name="roomInput" id="roomInput" class="form-control" [(ngModel)]="room">
+            <option value="Lobby">Lobby</option>
+            <option value="Travel">Travel</option>
+            <option value="Off-Topic">Off-Topic</option>
+         </select>
+      </div>
+      <div class="col sm-2">
+         <div style="margin-top: 19px" class="pull-right">
+            <button type="button" mat-raised-button color="primary" (click)="join()" class="mr-4">
+               {{ 'CHAT.JOIN' | translate }}
+            </button>
+            <button type="button" mat-raised-button color="warn" (click)="leave()">
+               {{ 'CHAT.LEAVE' | translate }}
+            </button>
+         </div>
+      </div>
+   </div>
+
+   <div class="row justify-content-center">
+      <div class="card card-body bg-light mb-4 mt-4" style="height: 200px; padding: 15px">
+         <div *ngFor="let item of messageArray">
+            <span [ngClass]="{ isAdmin: item.role === 'Admin' }">
+               <span *ngIf="item.user" (click)="goToUserProfile(item._id)">
+                  <strong class="user-name"
+                     >{{ item.user }} <span *ngIf="item.role === 'Admin'"> (Admin)</span>:</strong
+                  >
+               </span>
+               {{ item.message }}
+            </span>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="input-group input-group-lg">
+         <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="messageText"
+            (keydown.enter)="sendMessage()"
+            placeholder="{{ 'CHAT.TYPE_MESSAGE' | translate }}"
+         />
+         <button mat-mini-fab (click)="sendMessage()">
+            <mat-icon>send</mat-icon>
+         </button>
+      </div>
+   </div>
+</div>

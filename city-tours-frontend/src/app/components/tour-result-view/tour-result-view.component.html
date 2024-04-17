@@ -1,0 +1,35 @@
+<div class="container">
+   <h1 class="text-center">
+      {{ 'TOURS_IN' | translate | uppercase }} <span style="color: #ff4081">{{ locationName | uppercase }}</span>
+   </h1>
+   <mat-spinner *ngIf="isLoading"></mat-spinner>
+   <div class="row tours-view" *ngIf="!isLoading">
+      <div class="col-sm-4" *ngFor="let tour of tours">
+         <mat-card class="active-card" (click)="goToTourOverview(tour._id)">
+            <mat-card-header>
+               <div
+                  *ngIf="tourImageService.getUserProfilePicOfTour(tour._id!)"
+                  mat-card-avatar
+                  class="header-image"
+                  [ngStyle]="{ 'background-image': 'url(' + tourImageService.getUserProfilePicOfTour(tour._id!) + ')' }"
+               ></div>
+               <mat-card-title>{{ tour.name }}</mat-card-title>
+               <mat-card-subtitle>{{ 'BY' | translate | lowercase }} {{ tour.userName }}</mat-card-subtitle>
+               <mat-card-subtitle>{{ 'STOPS' | translate }}: {{ tour.sights.length }}</mat-card-subtitle>
+               <mat-card-subtitle>{{ 'TOTAL_LIKES' | translate }}: {{ tour.likes }}</mat-card-subtitle>
+            </mat-card-header>
+            <img
+               mat-card-image
+               *ngIf="tour.titleImage"
+               [src]="getImageOfTour(tour.titleImage!.imageURL)"
+               alt="Photo of {{ tour.name }}"
+            />
+            <mat-card-content>
+               <p>
+                  {{ tour.description }}
+               </p>
+            </mat-card-content>
+         </mat-card>
+      </div>
+   </div>
+</div>

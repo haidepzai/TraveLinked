@@ -1,0 +1,56 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Round input fields */
+.input-group-lg > .form-control {
+   border-radius: 30px !important;
+}
+
+.snackbar-success {
+   /*global snackbar styling */
+   color: black;
+   text-align: center;
+   background: #86cd96;
+   margin: auto;
+}
+
+.snackbar-success .mat-simple-snackbar-action {
+   color: black;
+   background-color: rgba(0, 0, 0, 0.1);
+}
+
+.snackbar-error {
+   color: white;
+   text-align: center;
+   background: #f44336;
+   margin: auto;
+}
+
+.stdTooltip {
+   /* global standard tooltip styling */
+   background-color: black;
+   font-size: 1.1em;
+}
+
+.mat-card-header-text {
+   width: 100% !important;
+}
+
+textarea {
+   resize: none !important;
+}
+
+.impressum-dialog mat-dialog-container {
+   padding: 0px !important;
+   border-radius: 30px;
+}
+
+/* Responsive */
+@media only screen and (max-width: 760px) {
+   h1 {
+      line-height: 1;
+   }
+   .impressum-dialog mat-dialog-container {
+      max-height: 600px;
+   }
+}

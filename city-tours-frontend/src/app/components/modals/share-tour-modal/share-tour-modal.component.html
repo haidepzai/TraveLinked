@@ -1,0 +1,41 @@
+<div class="modal-header">
+   <h1 *ngIf="!fromParentTourState" class="modal-title" id="modal-title">
+      {{ 'SHARE_TOUR.SHARE_YOUR_TOUR' | translate | uppercase }} !
+   </h1>
+   <h1 *ngIf="fromParentTourState" class="modal-title" id="modal-title">
+      {{ 'SHARE_TOUR.HIDE_YOUR_TOUR' | translate | uppercase }} !
+   </h1>
+   <button type="button" class="close" aria-describedby="modal-title" (click)="onClose()">
+      <span aria-hidden="true">&times;</span>
+   </button>
+</div>
+<div class="modal-body">
+   <p *ngIf="!fromParentTourState">
+      <strong
+         >{{ 'SHARE_TOUR.PROMPT' | translate }}
+         <span class="text-primary"> {{ this.fromParentTourName }}</span>
+         {{ 'SHARE_TOUR.PROMPT_MESSAGE' | translate }}
+      </strong>
+   </p>
+
+   <p *ngIf="fromParentTourState">
+      <strong
+         >{{ 'SHARE_TOUR.UNSHARE_TOUR' | translate }}
+         <span class="text-primary"> {{ this.fromParentTourName }}</span>
+         {{ 'SHARE_TOUR.UNSHARE_MESSAGE' | translate }}
+      </strong>
+      <br />
+   </p>
+</div>
+
+<div class="modal-footer">
+   <button type="button" class="btn btn-outline-secondary" (click)="shareTour(false)">
+      {{ 'MODAL.CANCEL' | translate }}
+   </button>
+   <button *ngIf="!fromParentTourState" type="button" class="btn btn-primary" (click)="shareTour(true)">
+      {{ 'SHARE' | translate }}
+   </button>
+   <button *ngIf="fromParentTourState" type="button" class="btn btn-primary" (click)="shareTour(true)">
+      {{ 'YES' | translate }}
+   </button>
+</div>

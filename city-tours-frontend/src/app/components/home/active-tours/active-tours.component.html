@@ -1,0 +1,41 @@
+<section id="active-tours" class="d-relative active-tours">
+   <div class="container">
+      <h1 class="text-center">
+         <span style="color: #ff4081">{{ 'ACTIVE' | translate | uppercase }}</span>
+         {{ 'TOURS' | translate | uppercase }}
+      </h1>
+      <div *ngIf="isLoading" class="row justify-content-center">
+         <mat-spinner *ngIf="isLoading"></mat-spinner>
+      </div>
+      <div class="row tours-view" *ngIf="!isLoading">
+         <div class="col-md-4" *ngFor="let tour of activeTours.slice(0, 3)">
+            <div class="card bg-dark text-white" (click)="goToTourOverview(tour._id)">
+               <img
+                  *ngIf="getImageOfTour(tour._id!)"
+                  [src]="getImageOfTour(tour.titleImage!.imageURL)"
+                  class="card-img"
+                  alt="{{ tour.name }}"
+               />
+
+               <div class="card-img-overlay">
+                  <h2 class="card-title overlay-content font-weight-bold text-center mb-4">
+                     {{ tour.name }}
+                  </h2>
+                  <h3 class="card-text overlay-content font-weight-bold text-center mb-4">
+                     {{ tour.startDate | date : 'mediumDate' }} -
+                     {{ tour.endDate | date : 'mediumDate' }}
+                  </h3>
+                  <h4 class="card-text overlay-content text-center">
+                     {{ 'BY' | translate | lowercase }} {{ tour.userName }}
+                  </h4>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row justify-content-center">
+         <button type="button" mat-raised-button class="show-more-btn">
+            {{ 'SHOW_MORE' | translate }}
+         </button>
+      </div>
+   </div>
+</section>

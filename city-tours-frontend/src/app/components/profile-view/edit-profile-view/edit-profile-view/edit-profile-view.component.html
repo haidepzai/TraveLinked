@@ -1,0 +1,211 @@
+<div class="container mt-5">
+   <div class="row mt-5">
+      <div class="col justify-content-center">
+         <h1>
+            {{ 'PROFILE.THIS_IS_YOUR' | translate | uppercase }}
+            <span style="color: #ff4081">{{ 'PROFILE.PROFILE' | translate | uppercase }}</span>
+         </h1>
+      </div>
+   </div>
+   <div class="row align-items-center mt-5">
+      <div class="col-lg-2">
+         <div
+            *ngIf="pictureURL"
+            id="profilePicture"
+            [ngStyle]="{ 'background-image': 'url(' + pictureURL + ')' }"
+         ></div>
+      </div>
+      <div class="col-lg-2">
+         <div style="vertical-align: middle">
+            <form [formGroup]="imgForm" (ngSubmit)="imgSubmit()" class="upload">
+               <mat-form-field class="example-full-width">
+                  <ngx-mat-file-input
+                     accept=".jpg,.JPG,.png,.PNG,.gif,.GIF"
+                     formControlName="imageFile"
+                     placeholder="Select Image"
+                     valuePlaceholder="No image file selected"
+                  >
+                  </ngx-mat-file-input>
+                  <mat-label *ngIf="!imgForm.valid">{{ 'PROFILE.IMG_UPLOAD_HINT' | translate }}</mat-label>
+                  <mat-label *ngIf="imgForm.valid">{{ 'PROFILE.SELECTED_FILE' | translate }}</mat-label>
+               </mat-form-field>
+               <button id="uploadButton" *ngIf="imgForm.valid" type="submit" mat-flat-button color="primary">
+                  <mat-icon>file_upload</mat-icon>
+               </button>
+            </form>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col">
+         <mat-card>
+            <mat-card-header>
+               <mat-card-title>{{ 'PROFILE.PROFILE_INFORMATION' | translate }}</mat-card-title>
+               <mat-card-subtitle>
+                  {{ 'PROFILE.PROFILE_INFO_SUBTITLE' | translate }}
+               </mat-card-subtitle>
+            </mat-card-header>
+            <mat-list>
+               <mat-list-item class="list">
+                  <div class="fieldDescription">{{ 'PROFILE.FULLNAME' | translate }}:</div>
+                  <mat-form-field>
+                     <input
+                        matInput
+                        type="text"
+                        class="field"
+                        #userName
+                        (focusout)="localChangeStorage.set('fullName', userName.value)"
+                        [value]="userStorageService.$userName"
+                     />
+                  </mat-form-field>
+               </mat-list-item>
+               <mat-list-item class="list">
+                  <div class="fieldDescription">{{ 'PROFILE.HOMETOWN' | translate }}</div>
+                  <mat-form-field>
+                     <input
+                        class="field"
+                        #searchBar
+                        ngx-google-places-autocomplete
+                        type="text"
+                        matInput
+                        [value]="hometown"
+                        name="search"
+                        (onAddressChange)="searchLocation(searchBar.value)"
+                     />
+                  </mat-form-field>
+               </mat-list-item>
+               <mat-list-item>
+                  <div class="fieldDescription">{{ 'PROFILE.BECOME_LOCAL_GUIDE' | translate }}</div>
+                  <mat-checkbox
+                     #localGuideCheckbox
+                     [checked]="isLocalGuide"
+                     (change)="localChangeStorage.set('isLocalGuide', $event.checked)"
+                  >
+                  </mat-checkbox>
+               </mat-list-item>
+               <mat-list-item>
+                  <mat-card-actions class="mt-4">
+                     <button class="mat-btn" mat-raised-button color="warn" (click)="openDeleteDialog()">
+                        {{ 'PROFILE.DELETE_PROFILE' | translate }}
+                     </button>
+                  </mat-card-actions>
+               </mat-list-item>
+            </mat-list>
+         </mat-card>
+      </div>
+   </div>
+   <div class="row mt-4">
+      <div class="col">
+         <mat-card>
+            <mat-card-header>
+               <mat-card-title>{{ 'PROFILE.ABOUT_ME' | translate }}</mat-card-title>
+            </mat-card-header>
+            <mat-form-field appearance="fill">
+               <mat-label>{{ 'PROFILE.ABOUT_ME_TEXT' | translate }}</mat-label>
+               <textarea
+                  #aboutMe
+                  matInput
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="6"
+                  cdkAutosizeMaxRows="10"
+                  (focusout)="localChangeStorage.set('aboutMe', aboutMe.value)"
+               ></textarea>
+            </mat-form-field>
+         </mat-card>
+      </div>
+   </div>
+   <div class="row mt-4">
+      <div class="col">
+         <mat-card>
+            <mat-card-header>
+               <mat-card-title>{{ 'PROFILE.PRIVACY_SETTINGS' | translate }}</mat-card-title>
+               <mat-card-subtitle>
+                  {{ 'PROFILE.PRIVACY_SUBTITLE' | translate }}
+               </mat-card-subtitle>
+            </mat-card-header>
+            <mat-list>
+               <mat-list-item>
+                  <div class="fieldDescription">{{ 'PROFILE.PUBLIC_PROFILE' | translate }}</div>
+                  <mat-slide-toggle
+                     #togglePublic
+                     (change)="localChangeStorage.set('profileIsPublic', togglePublic.checked)"
+                  >
+                  </mat-slide-toggle>
+               </mat-list-item>
+            </mat-list>
+         </mat-card>
+      </div>
+   </div>
+   <div class="row mt-4">
+      <div class="col">
+         <mat-card>
+            <mat-card-header>
+               <mat-card-title>{{ 'PROFILE.CHANGE_PASSWORD' | translate }}</mat-card-title>
+            </mat-card-header>
+            <mat-list>
+               <form [formGroup]="passwordForm" (ngSubmit)="submitPasswordChange()">
+                  <mat-list-item class="list">
+                     <mat-form-field>
+                        <input
+                           matInput
+                           type="password"
+                           formControlName="oldPassword"
+                           placeholder="{{ 'PROFILE.CURRENT_PASSWORD' | translate }}"
+                           class="passwordChange"
+                        />
+                     </mat-form-field>
+                  </mat-list-item>
+                  <mat-list-item class="list">
+                     <mat-form-field>
+                        <input
+                           matInput
+                           type="password"
+                           formControlName="passwordNew"
+                           class="passwordChange"
+                           placeholder="{{ 'PROFILE.NEW_PASSWORD' | translate }}"
+                        />
+                     </mat-form-field>
+                  </mat-list-item>
+                  <mat-list-item class="list">
+                     <mat-form-field>
+                        <input
+                           matInput
+                           type="password"
+                           formControlName="confirmPassword"
+                           placeholder="{{ 'PROFILE.CONFIRM_PASSWORD' | translate }}"
+                           class="passwordChange"
+                        />
+                     </mat-form-field>
+                  </mat-list-item>
+                  <mat-card-actions>
+                     <button type="submit" *ngIf="passwordForm.valid" mat-flat-button color="primary">
+                        {{ 'PROFILE.CONFIRM' | translate }}
+                     </button>
+                     <mat-hint *ngIf="!passwordForm.valid">
+                        {{ 'SIGN_IN.PASSWORD_REQUIREMENTS.TITLE' | translate }}:
+                        <ul>
+                           <li>{{ 'SIGN_IN.PASSWORD_REQUIREMENTS.CHARACTERS' | translate }}</li>
+                           <li>{{ 'SIGN_IN.PASSWORD_REQUIREMENTS.UPPERCASE' | translate }}</li>
+                           <li>{{ 'SIGN_IN.PASSWORD_REQUIREMENTS.LOWERCASE' | translate }}</li>
+                           <li>{{ 'SIGN_IN.PASSWORD_REQUIREMENTS.NUMBERS' | translate }}</li>
+                        </ul>
+                     </mat-hint>
+                  </mat-card-actions>
+               </form>
+            </mat-list>
+         </mat-card>
+      </div>
+   </div>
+   <div class="row mt-4">
+      <div class="col">
+         <mat-card-actions>
+            <button class="mat-btn" mat-raised-button color="basic" (click)="cancelEdit()">
+               {{ 'CANCEL' | translate }}
+            </button>
+            <button class="mat-btn" mat-raised-button color="primary" (click)="saveProfileChanges()">
+               {{ 'SAVE' | translate }}
+            </button>
+         </mat-card-actions>
+      </div>
+   </div>
+</div>

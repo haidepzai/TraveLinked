@@ -1,0 +1,165 @@
+<div class="container" [ngClass]="{ overlay: isLoading }" *ngIf="tour">
+   <div class="row heading">
+      <div class="col-sm-12">
+         <h1 class="text-center">
+            {{ 'EDIT_YOUR' | translate | uppercase }}
+            <span style="color: #ff4081">{{ 'INDIVIDUAL' | translate | uppercase }}</span>
+            {{ 'TOUR' | translate | uppercase }}!
+         </h1>
+      </div>
+   </div>
+
+   <form [formGroup]="tourCreationForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+         <div class="col-sm-6">
+            <mat-form-field appearance="outline">
+               <mat-label>{{ 'NAME' | translate }}:</mat-label>
+               <input matInput formControlName="name" />
+               <mat-hint>{{ 'REQUIRED' | translate }} *</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+               <mat-label>{{ 'ENTER_DATE_RANGE' | translate }}</mat-label>
+               <mat-date-range-input formGroupName="date" [rangePicker]="picker">
+                  <input matStartDate formControlName="startDate" placeholder="Start date" />
+                  <input matEndDate formControlName="endDate" placeholder="End date" />
+               </mat-date-range-input>
+               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+               <mat-date-range-picker #picker></mat-date-range-picker>
+               <mat-hint>{{ 'REQUIRED' | translate }} *</mat-hint>
+            </mat-form-field>
+            <app-image-upload #uploadImage></app-image-upload>
+         </div>
+         <div class="col-sm-6">
+            <mat-form-field appearance="outline">
+               <mat-label>{{ 'DESCRIPTION' | translate }}</mat-label>
+               <textarea rows="11" matInput formControlName="description"></textarea>
+               <mat-hint>{{ 'REQUIRED' | translate }} *</mat-hint>
+            </mat-form-field>
+         </div>
+      </div>
+   </form>
+
+   <div class="row" *ngIf="sights.length > 0">
+      <div class="col-sm-12">
+         <h3>
+            {{ 'YOUR' | translate | uppercase }} <span style="color: #ff4081">{{ 'TOUR' | translate | uppercase }}</span
+            >:
+         </h3>
+      </div>
+   </div>
+   <div class="row mb-4" *ngIf="sights.length > 0">
+      <div class="col-sm-12">
+         <div cdkDropList (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let sight of sights; let i = index">
+               <mat-card class="tours-card" cdkDrag>
+                  <mat-card-title style="font-size: larger"> {{ i }}: {{ sight.name }} </mat-card-title>
+                  <mat-card-actions>
+                     <button mat-mini-fab color="warn" (click)="deletePoiFromSights(sight)">
+                        <mat-icon> delete </mat-icon>
+                     </button>
+                  </mat-card-actions>
+               </mat-card>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="row loading" *ngIf="isLoading">
+      <div class="col-sm-12">
+         <mat-spinner mode="indeterminate"></mat-spinner>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="input-group input-group-lg col-sm-8 mb-4 mt-4">
+         <input
+            #searchBar
+            ngx-google-places-autocomplete
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="{{ 'SEARCH.SIGHTS' | translate }}"
+            (keydown.enter)="searchLocation(searchBar.value)"
+            (onAddressChange)="searchLocation(searchBar.value)"
+         />
+         <button mat-mini-fab (click)="searchLocation(searchBar.value)">
+            <mat-icon>search</mat-icon>
+         </button>
+      </div>
+      <div class="col-sm-2 mb-4 mt-4">
+         <button
+            mat-mini-fab
+            color="primary"
+            aria-label="Example icon button with a menu icon"
+            (click)="changeListOrMapView()"
+         >
+            <mat-icon *ngIf="!showList">list</mat-icon>
+            <mat-icon *ngIf="showList">map</mat-icon>
+         </button>
+      </div>
+   </div>
+
+   <div class="row mb-4 mt-4" *ngIf="!showList">
+      <button mat-raised-button color="primary" class="area-button mb-3" (click)="searchInThisArea()">
+         <mat-icon>search</mat-icon>
+         {{ 'TOUR_CREATION.SEARCH_IN_THIS_AREA' | translate }}
+      </button>
+      <google-map class="map" [zoom]="zoom" [center]="center" [options]="options" width="100%" height="500px">
+         <map-marker
+            #somemarker="mapMarker"
+            *ngFor="let poi of listOfPoi"
+            [position]="poi.geometry.location"
+            [options]="markerOptions"
+            [title]="poi.name"
+            (mapClick)="openInfo(somemarker, poi)"
+         >
+         </map-marker>
+
+         <map-marker
+            #ownmarker="mapMarker"
+            [options]="ownMarkerOptions"
+            *ngFor="let ownPoi of listOfOwnPoi"
+            [position]="ownPoi.geometry.location"
+            [title]="ownPoi.name"
+            (mapClick)="openInfo(ownmarker, ownPoi)"
+         >
+         </map-marker>
+         <map-info-window>
+            <div *ngIf="poi !== null && poi !== undefined" style="width: 200px; height: fit-content">
+               <h3>{{ poi.name }}</h3>
+               <p *ngIf="poi.formatted_address !== null" style="word-wrap: break-word">{{ poi.formatted_address }}</p>
+               <p *ngIf="poi.vicinity !== null">{{ poi.vicinity }}</p>
+               <img *ngIf="poi.imagePath" src="{{ poi.imagePath }}" class="poi-img" alt="Point of Interest" />
+               <img *ngIf="poi.titleImage" src="{{ imgSrc }}" class="poi-img" alt="Point of Interest" />
+               <button mat-stroked-button color="primary" class="poi-button" (click)="addPoiToSights(poi)">
+                  {{ 'ADD' | translate }}
+               </button>
+            </div>
+         </map-info-window>
+      </google-map>
+   </div>
+
+   <div class="row justify-content-center mb-4" *ngIf="showList && this.listOfPoi.length > 0">
+      <app-sightseeing-view
+         [listOfPoi]="listOfPoi"
+         [nextPageToken]="nextPageToken"
+         (pointOfInterest)="addPoiToSights($event)"
+      ></app-sightseeing-view>
+   </div>
+
+   <div class="row mb-2 mt-2">
+      <button
+         type="submit"
+         mat-raised-button
+         color="primary"
+         form="tourCreationForm"
+         [disabled]="!tourCreationForm.valid"
+         (click)="onSubmit()"
+         class="submit-button"
+      >
+         {{ 'SAVE_TOUR' | translate }}!
+      </button>
+   </div>
+</div>

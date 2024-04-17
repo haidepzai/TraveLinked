@@ -1,0 +1,43 @@
+mat-form-field {
+   width: 100%;
+}
+
+.map {
+   height: fit-content;
+   width: 100%;
+}
+
+h1 {
+   font-size: 3em;
+   margin-top: 1.5em;
+   margin-bottom: 1.5em;
+}
+
+.mat-mini-fab {
+   position: absolute;
+   right: 20px;
+   top: 4px;
+   z-index: 999;
+   box-shadow: none !important;
+}
+
+input:focus {
+   box-shadow: none;
+   outline: none;
+}
+
+.mat-raised-button {
+   border-radius: 30px;
+}
+
+/* Responsive */
+@media only screen and (max-width: 760px) {
+   h1 {
+      line-height: 1;
+      font-size: 32px;
+   }
+   .submit-button {
+      margin-left: auto;
+      margin-right: auto;
+   }
+}

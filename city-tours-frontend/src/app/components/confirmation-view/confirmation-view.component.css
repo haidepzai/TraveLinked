@@ -1,0 +1,19 @@
+.container {
+   min-height: 700px;
+}
+
+h1 {
+   font-size: 3em;
+   padding-top: 75px;
+}
+
+.mat-raised-button {
+   border-radius: 30px;
+}
+
+/* Responsive */
+@media only screen and (max-width: 760px) {
+   h1 {
+      line-height: 1;
+   }
+}

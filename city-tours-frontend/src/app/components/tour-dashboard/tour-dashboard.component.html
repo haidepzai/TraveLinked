@@ -1,0 +1,32 @@
+<div>
+   <ul class="nav nav-pills justify-content-center">
+      <li class="nav-item">
+         <a
+            class="nav-link"
+            [ngClass]="{ active: dashboardView === 1 }"
+            (click)="dashboardView = 1"
+            [routerLink]="userStorageService.$loggedIn ? ['/tour-dashboard/my-tours'] : []"
+            >{{ 'MY' | translate | uppercase }} {{ 'TOURS' | translate | uppercase }}</a
+         >
+      </li>
+      <li class="nav-item">
+         <a
+            class="nav-link"
+            [ngClass]="{ active: dashboardView === 2 }"
+            (click)="dashboardView = 2"
+            [routerLink]="userStorageService.$loggedIn ? ['/tour-dashboard/liked-tours'] : []"
+            >{{ 'LIKED' | translate | uppercase }} {{ 'TOURS' | translate | uppercase }}</a
+         >
+      </li>
+      <li class="nav-item">
+         <a
+            class="nav-link"
+            [ngClass]="{ active: dashboardView === 3 }"
+            (click)="dashboardView = 3"
+            [routerLink]="userStorageService.$loggedIn ? ['/tour-dashboard/my-pois'] : []"
+            >{{ 'MY' | translate | uppercase }} {{ 'POIS' | translate | uppercase }}</a
+         >
+      </li>
+   </ul>
+   <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,87 @@
+.container {
+   margin-top: 5em;
+}
+
+h1 {
+   font-size: 3em;
+}
+
+mat-card {
+   max-width: 400px;
+}
+
+.show-more-btn {
+   color: white;
+   background-color: #3f51b5;
+   margin-top: 50px;
+   border-radius: 30px;
+}
+
+.show-more-btn:hover {
+   background-color: rgba(0, 0, 0, 0.75);
+}
+
+.active-card {
+   transition: box-shadow 0.3s;
+}
+
+.active-card:hover {
+   box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+   cursor: pointer;
+}
+
+.inactive-card {
+   background-color: transparent;
+}
+
+.header-image {
+   background-size: cover;
+}
+
+.tours-view {
+   margin-top: 8vh;
+}
+
+.mat-card-image {
+   object-fit: cover;
+   height: 200px;
+}
+
+mat-spinner {
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.mat-mini-fab {
+   box-shadow: none !important;
+}
+
+mat-card img {
+   filter: grayscale(60%); /* 60% Schwarz-Weiß Filter */
+   -webkit-transition: filter 0.3s;
+   -o-transition: filter 0.3s;
+   transition: filter 0.3s;
+}
+
+mat-card:hover > img {
+   filter: none !important;
+}
+
+.like-button {
+   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.like-button:hover {
+   transition: background-color 300ms linear;
+   background-color: crimson;
+}
+
+/* Responsive */
+@media only screen and (max-width: 760px) {
+   h1 {
+      line-height: 1;
+   }
+   .active-card {
+      margin-bottom: 20px;
+   }
+}

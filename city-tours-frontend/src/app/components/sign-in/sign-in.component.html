@@ -1,0 +1,166 @@
+<button class="close" mat-dialog-close><mat-icon class="btn-icon">close</mat-icon></button>
+<!-- Login Form -->
+<div *ngIf="currentForm === 'Login'" class="contentContainer">
+   <div mat-dialog-content class="sign-in-container">
+      <h1 class="sign-in-title" mat-dialog-title>- {{ 'SIGN_IN.TITLE_LOGIN' | translate }} -</h1>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+         <mat-form-field class="d-block">
+            <input
+               type="email"
+               formControlName="email"
+               placeholder="{{ 'SIGN_IN.ENTER_EMAIL' | translate }}"
+               id="email"
+               matInput
+            />
+         </mat-form-field>
+
+         <mat-form-field class="d-block">
+            <input
+               type="password"
+               formControlName="password"
+               placeholder="{{ 'SIGN_IN.ENTER_PASSWORD' | translate }}"
+               id="password"
+               matInput
+            />
+         </mat-form-field>
+
+         <mat-dialog-actions>
+            <button class="submit-btn" type="submit" mat-raised-button color="accent" [disabled]="!loginForm.valid">
+               {{ 'SIGN_IN.LOGIN' | translate }}
+            </button>
+            <p class="changeFormTxt">
+               {{ 'SIGN_IN.REGISTER_INFO' | translate }}
+               <a class="switch-form-link" role="button" (click)="changeForm('Register')">{{
+                  'SIGN_IN.REGISTER' | translate
+               }}</a>
+            </p>
+            <a class="switch-form-link" role="button" (click)="changeForm('ForgotPassword')">{{
+               'SIGN_IN.FORGOT_PASSWORD' | translate
+            }}</a>
+         </mat-dialog-actions>
+
+         <div *ngIf="message !== undefined" class="alert alert-danger mt-4" role="alert">
+            {{ message }}
+         </div>
+      </form>
+   </div>
+</div>
+<!-- Forgot Password Form -->
+<div *ngIf="currentForm === 'ForgotPassword'" class="contentContainer">
+   <div mat-dialog-content>
+      <h1 class="sign-in-title forgot-password-title" mat-dialog-title>
+         - {{ 'SIGN_IN.FORGOT_PASSWORD' | translate }} -
+      </h1>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <form [formGroup]="forgotPasswordForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+         <mat-form-field class="d-block">
+            <input
+               type="email"
+               formControlName="email"
+               placeholder="{{ 'SIGN_IN.ENTER_EMAIL' | translate }}"
+               id="email"
+               matInput
+            />
+         </mat-form-field>
+
+         <mat-dialog-actions>
+            <button
+               class="submit-btn"
+               type="submit"
+               mat-raised-button
+               color="accent"
+               [disabled]="!forgotPasswordForm.valid"
+            >
+               {{ 'SIGN_IN.SEND_LINK' | translate }}
+            </button>
+            <a class="switch-form-link mt-4" role="button" (click)="changeForm('Login')">{{ 'CANCEL' | translate }}</a>
+         </mat-dialog-actions>
+
+         <div
+            *ngIf="message !== undefined"
+            [ngClass]="isInvalid ? 'alert alert-danger mt-4' : 'alert alert-success mt-4'"
+            role="alert"
+         >
+            {{ message }}
+         </div>
+      </form>
+   </div>
+</div>
+<!-- Register Form -->
+<div *ngIf="currentForm === 'Register'" class="contentContainer">
+   <div mat-dialog-content>
+      <h1 class="sign-in-title register-title" mat-dialog-title>- {{ 'SIGN_IN.TITLE_REGISTER' | translate }} -</h1>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+         <mat-form-field class="d-block">
+            <input
+               type="text"
+               formControlName="fullName"
+               placeholder="{{ 'SIGN_IN.ENTER_FULLNAME' | translate }}"
+               id="fullName"
+               matInput
+            />
+         </mat-form-field>
+
+         <mat-form-field class="d-block">
+            <input
+               type="email"
+               formControlName="email"
+               placeholder="{{ 'SIGN_IN.ENTER_EMAIL' | translate }}"
+               id="email"
+               matInput
+            />
+         </mat-form-field>
+
+         <mat-form-field class="d-block password-field">
+            <input
+               type="password"
+               formControlName="password"
+               placeholder="{{ 'SIGN_IN.CREATE_PASSWORD' | translate }}"
+               id="password"
+               matInput
+            />
+            <mat-hint>
+               {{ 'SIGN_IN.PASSWORD_REQUIREMENTS.TITLE' | translate }}:
+               <ul>
+                  <li>{{ 'SIGN_IN.PASSWORD_REQUIREMENTS.CHARACTERS' | translate }}</li>
+                  <li>{{ 'SIGN_IN.PASSWORD_REQUIREMENTS.UPPERCASE' | translate }}</li>
+                  <li>{{ 'SIGN_IN.PASSWORD_REQUIREMENTS.LOWERCASE' | translate }}</li>
+                  <li>{{ 'SIGN_IN.PASSWORD_REQUIREMENTS.NUMBERS' | translate }}</li>
+               </ul>
+            </mat-hint>
+         </mat-form-field>
+
+         <mat-form-field class="d-block mt-5">
+            <input
+               type="password"
+               formControlName="confirmPassword"
+               placeholder="{{ 'SIGN_IN.CONFIRM_PASSWORD' | translate }}"
+               id="confirmPassword"
+               matInput
+            />
+         </mat-form-field>
+
+         <mat-dialog-actions>
+            <button class="submit-btn" type="submit" mat-raised-button color="accent" [disabled]="!registerForm.valid">
+               {{ 'SIGN_IN.REGISTER_NOW' | translate }}
+            </button>
+            <p class="changeFormTxt">
+               {{ 'SIGN_IN.LOGIN_INFO' | translate }}
+               <a class="switch-form-link" role="button" (click)="changeForm('Login')">{{
+                  'SIGN_IN.SIGN_IN' | translate
+               }}</a>
+            </p>
+         </mat-dialog-actions>
+
+         <div
+            *ngIf="message !== undefined"
+            [ngClass]="isInvalid ? 'alert alert-danger mt-4' : 'alert alert-success mt-4'"
+            role="alert"
+         >
+            {{ message }}
+         </div>
+      </form>
+   </div>
+</div>

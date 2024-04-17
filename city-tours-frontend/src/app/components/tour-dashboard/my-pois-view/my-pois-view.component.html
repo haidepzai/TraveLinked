@@ -1,0 +1,69 @@
+<div class="container">
+   <div class="head-stripe">
+      <h1>{{ 'MY' | translate | uppercase }} {{ 'POIS' | translate | uppercase }}</h1>
+   </div>
+   <div *ngIf="isLoading" class="row justify-content-center">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+   </div>
+   <div *ngIf="!isLoading">
+      <div class="input-group input-group-lg mb-4 mt-4">
+         <input
+            #searchBar
+            type="text"
+            [(ngModel)]="searchTerm"
+            name="search"
+            class="form-control"
+            placeholder="{{ 'SEARCH.SEARCH' | translate }}"
+         />
+         <button mat-mini-fab matTooltip="Filter your pois by..." matTooltipPosition="right" [matMenuTriggerFor]="menu">
+            <mat-icon>filter_list</mat-icon>
+         </button>
+         <mat-menu #menu="matMenu">
+            <button (click)="sortBy('creationDate')" mat-menu-item>{{ 'SORT.CREATION_DATE' | translate }}</button>
+            <button (click)="sortBy('alphabetical_az')" mat-menu-item>{{ 'SORT.AZ' | translate }}</button>
+            <button (click)="sortBy('alphabetical_za')" mat-menu-item>{{ 'SORT.ZA' | translate }}</button>
+         </mat-menu>
+      </div>
+
+      <div *ngIf="myPois.length === 0">
+         <h2 class="text-center">{{ 'TOUR_DASHBOARD.NO_POIS_TITLE' | translate }}</h2>
+         <h3 class="text-center">{{ 'TOUR_DASHBOARD.NO_POIS_SUBTITLE' | translate }}</h3>
+         <div class="row justify-content-center">
+            <button type="button" mat-raised-button color="primary" [routerLink]="['/poi-creation']">
+               {{ 'TOUR_DASHBOARD.CREATE_POI' | translate }} <mat-icon>add_circle</mat-icon>
+            </button>
+         </div>
+      </div>
+
+      <mat-card
+         [ngClass]="onDelBtn ? 'inactive-card' : 'active-card'"
+         *ngFor="let poi of myPois | searchPoi : searchTerm"
+         (click)="goToPoiOverview(poi._id)"
+         id="poi-card"
+         style="min-height: fit-content"
+      >
+         <div class="row align-items-center content-div">
+            <div class="col-md-2">
+               <div class="row img-wrapper">
+                  <img *ngIf="poi.titleImage" [src]="getImageOfPoi(poi.titleImage!.imageURL)" alt="" class="poi-img" />
+               </div>
+            </div>
+            <div class="col-md-9">
+               <h2>{{ poi.name }}</h2>
+               <div>{{ poi.description | limitTo : '300' }}</div>
+            </div>
+            <div class="col-md-1">
+               <button
+                  (click)="deleteDialog(poi._id, poi.name); $event.stopPropagation()"
+                  (mouseover)="onDelBtn = true"
+                  (mouseout)="onDelBtn = false"
+                  mat-menu-item
+                  class="del-btn"
+               >
+                  <mat-icon id="del-icon">delete_outline</mat-icon>
+               </button>
+            </div>
+         </div>
+      </mat-card>
+   </div>
+</div>

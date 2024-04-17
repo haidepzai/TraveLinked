@@ -1,0 +1,22 @@
+#team .rounded-circle {
+   border: 8px solid white;
+}
+
+.team-bg {
+   background-color: lightgray;
+   height: 100%;
+}
+
+h1 {
+   font-size: 32px;
+   color: #3f51b5;
+}
+
+h2 {
+   font-size: 20px;
+   color: #3f51b5;
+}
+
+img {
+   max-width: 150px;
+}

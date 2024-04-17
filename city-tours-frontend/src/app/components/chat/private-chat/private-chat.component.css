@@ -1,0 +1,127 @@
+h1 {
+   font-size: 2em;
+   margin-top: 1.5em;
+   margin-bottom: 1.5em;
+}
+
+.mat-raised-button {
+   border-radius: 30px;
+}
+
+.mat-mini-fab {
+   position: absolute;
+   right: 5px;
+   top: 4px;
+   z-index: 999;
+   box-shadow: none !important;
+}
+
+.container {
+   min-height: 700px;
+}
+
+.card {
+   overflow-y: scroll;
+}
+
+mat-list {
+   width: 100%;
+   margin-top: -0.9rem;
+}
+
+mat-form-field {
+   width: 100%;
+}
+
+.selectHint {
+   border: 2px grey solid;
+   border-radius: 10px;
+   padding: 250px 0px;
+   text-align: center;
+}
+
+::ng-deep .mat-list-item-content {
+   padding-left: 0px !important;
+}
+
+::ng-deep .mat-divider {
+   margin: -2px 0px !important;
+}
+
+::ng-deep .mat-list-item {
+   padding: 0.5rem 0px;
+}
+
+::ng-deep .mat-list-base {
+   padding-top: unset !important;
+}
+
+img {
+   height: 3rem;
+}
+
+h2 {
+   margin-bottom: unset;
+}
+
+/* width */
+::-webkit-scrollbar {
+   width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+   background: #f5f5f5;
+   border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+   border-radius: 10px;
+   background: #ccc;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+   background: #555;
+}
+
+mat-list-item {
+   border-radius: 10px;
+   cursor: pointer;
+}
+
+.active {
+   background-color: #3f51b5;
+   color: white;
+}
+
+mat-list-item:hover {
+   background-color: lightgray;
+   transition: background-color 300ms linear;
+}
+
+mat-card {
+   border-radius: 10px;
+   background-image: linear-gradient(to right, #3f51b5, rgb(122, 166, 248));
+   color: white;
+}
+
+.badge {
+   margin-left: 20px;
+}
+
+/* Responsive */
+@media only screen and (max-width: 760px) {
+   .public-chat-btn {
+      margin-left: auto;
+      margin-right: auto;
+   }
+}
+
+.profilePic {
+   margin: 4px 10px 4px 4px;
+   border-radius: 50%;
+   height: 90%;
+   object-fit: cover;
+   width: 42px;
+}

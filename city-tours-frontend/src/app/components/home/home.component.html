@@ -1,0 +1,33 @@
+<div class="jumbotron jumbotron-fluid">
+   <video
+      id="vid"
+      autoplay
+      muted
+      loop
+      preload="auto"
+      playsinline
+      oncanplay="this.play()"
+      onloadedmetadata="this.muted = true"
+   >
+      <source src="../../../assets/videos/Home_Montage_reduced1.mp4" type="video/mp4" />
+      <source src="../../../assets/videos/Home_Montage_reduced1.ogg" type="video/ogg" />
+   </video>
+   <div class="overlay h-100 d-flex justify-content-center align-items-center">
+      <div class="inner-content">
+         <h1 class="text-center font-weight-bold">{{ 'HOME.TITLE' | translate }}</h1>
+         <h2 class="text-center font-weight-light mt-8">{{ 'HOME.SUBTITLE' | translate }}</h2>
+         <div class="row justify-content-center">
+            <div class="col-sm-6">
+               <!-- (poiList) = Event Binding: Retrieve the Data which got emitted from the child component (Output)-->
+               <app-search (poiList)="loadPoiList($event)"></app-search>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div>
+   <router-outlet></router-outlet>
+</div>
+<button routerLink="/chat" class="mat-fab-bottom-right" mat-fab color="primary" aria-label="chat">
+   <mat-icon class="icon">message</mat-icon>
+</button>

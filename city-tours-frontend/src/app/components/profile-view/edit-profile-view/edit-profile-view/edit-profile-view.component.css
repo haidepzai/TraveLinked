@@ -1,0 +1,93 @@
+#uploadButton {
+   margin-left: 10px;
+}
+
+#profilePicture {
+   margin-top: 10px;
+   border-radius: 50%;
+   margin: 10px 10px 0px;
+   width: 100px;
+   background-size: cover;
+   height: 100px;
+}
+
+.mat-card {
+   margin-top: 10px;
+}
+
+mat-icon {
+   cursor: pointer;
+}
+
+.changePassword {
+   width: 100%;
+   margin-bottom: 10px;
+}
+
+.helperIcon {
+   margin-left: 10px;
+}
+
+.mat-tab {
+   min-width: 300px;
+}
+
+.mat-mini-fab {
+   box-shadow: none;
+}
+
+#editButton {
+   float: right;
+   cursor: pointer;
+   background-color: rgba(0, 0, 0, 0.3);
+   color: white;
+}
+
+#editButton:hover {
+   transition: background-color 300ms linear;
+   background-color: #3f51b5;
+   color: white;
+}
+
+.fieldDescription {
+   margin-right: 10px;
+}
+.passwordChange {
+   display: block;
+}
+
+h1 {
+   text-align: center;
+   font-size: 3em;
+}
+
+.mat-checkbox {
+   margin-top: 8px;
+}
+
+.list {
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-between;
+}
+
+.upload {
+   display: inline-block;
+   margin-left: 10px;
+   vertical-align: middle;
+}
+
+:root {
+   width: 100%;
+}
+
+.mat-btn {
+   border-radius: 30px;
+}
+
+/* Responsive */
+@media only screen and (max-width: 760px) {
+   h1 {
+      line-height: 1;
+   }
+}

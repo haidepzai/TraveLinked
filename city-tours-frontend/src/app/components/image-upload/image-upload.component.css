@@ -1,0 +1,36 @@
+.preview {
+   height: 100px;
+   width: 170px;
+}
+
+.imgUpload {
+   display: inline-block;
+}
+
+#uploadForm {
+   margin-right: 15px;
+}
+
+.mat-mini-fab {
+   box-shadow: none !important;
+   margin-left: 10px;
+   background-color: transparent !important;
+}
+
+.del-btn {
+   cursor: pointer;
+}
+
+.del-btn:hover {
+   background-color: rgba(201, 29, 29, 0.733) !important;
+   transition: background-color 300ms linear !important;
+}
+
+#del-icon {
+   margin: 0px !important;
+   color: crimson;
+}
+
+.del-btn:hover #del-icon {
+   color: white !important;
+}

@@ -1,0 +1,16 @@
+{
+    "modifyObstructiveCode": true,
+    "experimentalSourceRewriting": false,
+    "chromeWebSecurity": true,
+    "waitAfterEaachCommand": 2000,
+    "defaultCommandTimeout": 8000,
+    "pageLoadTimeout": 30000,
+    "reporter": "haidepzai",
+    "baseUrl": "http://localhost:4200",
+    "retries": {
+        "runMode": 1
+    },
+    "projectId": "133769",
+    "$schema": "https://on.cypress.io/cypress.schema.json"
+  }
+  

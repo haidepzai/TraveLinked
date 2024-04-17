@@ -1,0 +1,148 @@
+<div *ngIf="isLoading" class="container mt-5">
+   <div class="row justify-content-center">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+   </div>
+</div>
+<div *ngIf="!isLoading" class="container mt-5">
+   <div class="card mt-5">
+      <div class="card-body">
+         <div class="row">
+            <div class="col-lg-2">
+               <div
+                  *ngIf="pictureURL"
+                  id="profilePicture"
+                  [ngStyle]="{ 'background-image': 'url(' + pictureURL + ')' }"
+               ></div>
+            </div>
+            <div class="col-lg-9">
+               <h1 *ngIf="isOwnProfile" class="card-title">
+                  {{ 'PROFILE.THIS_IS_YOUR' | translate | uppercase }}
+                  <span style="color: #ff4081">{{ 'PROFILE.PROFILE' | translate | uppercase }}</span>
+               </h1>
+               <h1 *ngIf="!isOwnProfile" class="card-title">
+                  {{ 'PROFILE.THIS_IS_THE_PROFILE_OF' | translate | uppercase }}
+                  <span style="color: #ff4081">{{ user.fullName | uppercase }}</span>
+               </h1>
+               <div class="row">
+                  <div class="col-md-4 col-lg-3">
+                     <h2>Tours</h2>
+                     <h3>{{ tours.length }}</h3>
+                  </div>
+                  <div class="col-md-4 col-lg-3">
+                     <h2>Followers</h2>
+                     <h3>{{ followers }}</h3>
+                  </div>
+                  <div class="col-md-4 col-lg-3">
+                     <h2>Following</h2>
+                     <h3>{{ following }}</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-1">
+               <button *ngIf="isOwnProfile" class="edit-button" mat-mini-fab (click)="goToEditProfile()">
+                  <mat-icon class="material-icons">edit</mat-icon>
+               </button>
+               <button
+                  mat-mini-fab
+                  aria-label="Example icon button with a filter list icon"
+                  class="follow-button"
+                  *ngIf="!isOwnProfile"
+                  [ngClass]="hasFollowed ? 'is-followed' : 'not-followed'"
+                  (click)="onFollow()"
+               >
+                  <mat-icon>favorite</mat-icon>
+               </button>
+               <button
+                  *ngIf="!isOwnProfile && isLoggedIn"
+                  class="message-button mt-2"
+                  color="primary"
+                  mat-mini-fab
+                  (click)="openMessageDialog()"
+               >
+                  <mat-icon class="material-icons">message</mat-icon>
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="row mt-5">
+      <div class="col-lg-4">
+         <div class="card" style="width: 18rem">
+            <div class="card-body">
+               <h1 class="card-title">Info</h1>
+               <div class="row">
+                  <div class="col-2">
+                     <mat-icon>place</mat-icon>
+                  </div>
+                  <div class="col-10">
+                     <p class="card-text">{{ hometown }}</p>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-2">
+                     <mat-icon>date_range</mat-icon>
+                  </div>
+                  <div class="col-10">
+                     <p class="card-text">{{ user.createdAt | date : 'longDate' }}</p>
+                  </div>
+               </div>
+               <div class="row">
+                  <p class="card-text" style="padding: 25px">{{ user.aboutMe }}</p>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="col-lg-8">
+         <mat-card
+            class="active-card"
+            *ngFor="let tour of tours"
+            (click)="goToTourOverview(tour._id)"
+            id="tour-card"
+            style="min-height: fit-content"
+         >
+            <div class="row align-items-center content-div">
+               <div class="col-md-4">
+                  <div class="row img-wrapper d-flex justify-content-center">
+                     <div *ngFor="let sight of tour.sights.slice(0, 2)">
+                        <div
+                           *ngIf="sight.imagePath"
+                           class="col img-xmpl"
+                           style="background-image: url('{{ sight.imagePath }}');"
+                        ></div>
+                        <div
+                           *ngIf="!sight.imagePath && sight.titleImage?.imageURL"
+                           class="col img-xmpl"
+                           style="background-image: url('{{ getPictureOfSight(sight.titleImage?.imageURL) }}');"
+                        ></div>
+                     </div>
+                     <div class="w-100"></div>
+                     <div *ngFor="let sight of tour.sights.slice(2, 4)">
+                        <div
+                           *ngIf="sight.imagePath"
+                           class="col img-xmpl"
+                           style="background-image: url('{{ sight.imagePath }}');"
+                        ></div>
+                        <div
+                           *ngIf="!sight.imagePath && sight.titleImage?.imageURL"
+                           class="col img-xmpl"
+                           style="background-image: url('{{ getPictureOfSight(sight.titleImage?.imageURL) }}');"
+                        ></div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-8">
+                  <span style="font-style: italic"
+                     >{{ tour.sights.length }} stops - {{ tour.startDate | date : 'dd/MM/yyyy' }}-{{
+                        tour.endDate | date : 'dd/MM/yyyy'
+                     }}</span
+                  >
+                  <h2>{{ tour.name }}</h2>
+                  <div>{{ tour.description | limitTo : '300' }}</div>
+               </div>
+            </div>
+         </mat-card>
+      </div>
+   </div>
+</div>

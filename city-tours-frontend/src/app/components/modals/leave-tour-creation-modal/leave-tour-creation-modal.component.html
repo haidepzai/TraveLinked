@@ -1,0 +1,19 @@
+<div class="modal-header">
+   <h1 class="modal-title" id="modal-title">{{ 'MODAL.ATTENTION' | translate | uppercase }} !</h1>
+   <button type="button" class="close" aria-describedby="modal-title" (click)="onClose()">
+      <span aria-hidden="true">&times;</span>
+   </button>
+</div>
+<div class="modal-body">
+   <p>
+      <strong>{{ 'MODAL.HINT' | translate }}</strong> <br />
+   </p>
+
+   <p class="text-danger">{{ 'MODAL.WARNING' | translate }}</p>
+</div>
+<div class="modal-footer">
+   <button type="button" class="btn btn-outline-secondary" (click)="selection(false)">
+      {{ 'MODAL.CANCEL' | translate }}
+   </button>
+   <button type="button" class="btn btn-danger" (click)="selection(true)">{{ 'MODAL.LEAVE' | translate }}</button>
+</div>

@@ -1,0 +1,81 @@
+.comment-container p {
+   background: #e9ebee;
+   padding: 6px 10px;
+}
+textarea.form-control {
+   resize: none;
+}
+.comments {
+   overflow-y: scroll;
+   max-height: 400px;
+}
+.comments ul {
+   list-style: none;
+   padding: 0;
+}
+.comments ul li {
+   border-bottom: #eee 1px solid;
+   margin-bottom: 10px;
+}
+.comments ul li:last-child {
+   border-bottom: none;
+}
+.comments h6 {
+   margin-left: 15px;
+}
+.divider {
+   margin: 0 5px;
+   width: 1px;
+   height: 20px;
+   background: #ccc;
+   display: inline-block;
+   vertical-align: middle;
+}
+
+.mat-raised-button {
+   border-radius: 30px;
+}
+
+.mat-mini-fab {
+   box-shadow: none !important;
+   background-color: transparent !important;
+}
+
+.del-btn:hover {
+   background-color: rgba(214, 12, 12, 0.877) !important;
+   transition: background-color 300ms linear !important;
+}
+
+#del-icon {
+   margin: 0px !important;
+   color: crimson;
+}
+
+.del-btn:hover #del-icon {
+   color: white !important;
+}
+
+.like-btn:hover {
+   background-color: #3f51b5 !important;
+   transition: background-color 300ms linear !important;
+}
+
+#like-icon {
+   margin: 0px !important;
+   color: #3f51b5;
+}
+
+.like-btn:hover #like-icon {
+   color: white !important;
+}
+
+hr {
+   margin-top: 45px;
+}
+
+span.user-name {
+   cursor: pointer;
+}
+span.user-name:hover {
+   text-decoration: underline;
+}

@@ -1,0 +1,95 @@
+<div class="container">
+   <div class="head-stripe">
+      <h1>
+         {{ 'MY' | translate | uppercase }} {{ 'LIKED' | translate | uppercase }} {{ 'TOURS' | translate | uppercase }}
+      </h1>
+   </div>
+   <div *ngIf="isLoading" class="row justify-content-center">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+   </div>
+   <div *ngIf="!isLoading">
+      <div class="input-group input-group-lg mb-4 mt-4">
+         <input
+            #searchBar
+            type="text"
+            [(ngModel)]="searchTerm"
+            name="search"
+            class="form-control"
+            placeholder="{{ 'SEARCH.SEARCH' | translate }}"
+         />
+         <button
+            mat-mini-fab
+            matTooltip="Filter your tours by..."
+            matTooltipPosition="right"
+            [matMenuTriggerFor]="menu"
+         >
+            <mat-icon>filter_list</mat-icon>
+         </button>
+         <mat-menu #menu="matMenu">
+            <button (click)="sortBy('startDate')" mat-menu-item>{{ 'SORT.START_DATE' | translate }}</button>
+            <button (click)="sortBy('alphabetical_az')" mat-menu-item>{{ 'SORT.AZ' | translate }}</button>
+            <button (click)="sortBy('alphabetical_za')" mat-menu-item>{{ 'SORT.ZA' | translate }}</button>
+         </mat-menu>
+      </div>
+      <mat-card
+         [ngClass]="unlikeBtn ? 'inactive-card' : 'active-card'"
+         *ngFor="let tour of likedTours! | search : searchTerm"
+         (click)="goToTourOverview(tour._id)"
+         id="tour-card"
+         style="min-height: fit-content"
+      >
+         <div class="row align-items-center content-div">
+            <div class="col-md-2">
+               <div class="row img-wrapper d-flex justify-content-center">
+                  <div *ngFor="let sight of tour.sights.slice(0, 2)">
+                     <div
+                        *ngIf="sight.imagePath"
+                        class="col img-xmpl"
+                        style="background-image: url('{{ sight.imagePath }}');"
+                     ></div>
+                     <div
+                        *ngIf="!sight.imagePath && sight.titleImage?.imageURL"
+                        class="col img-xmpl"
+                        style="background-image: url('{{ getPictureOfSight(sight.titleImage?.imageURL) }}');"
+                     ></div>
+                  </div>
+                  <div class="w-100"></div>
+                  <div *ngFor="let sight of tour.sights.slice(2, 4)">
+                     <div
+                        *ngIf="sight.imagePath"
+                        class="col img-xmpl"
+                        style="background-image: url('{{ sight.imagePath }}');"
+                     ></div>
+                     <div
+                        *ngIf="!sight.imagePath && sight.titleImage?.imageURL"
+                        class="col img-xmpl"
+                        style="background-image: url('{{ getPictureOfSight(sight.titleImage?.imageURL) }}');"
+                     ></div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-9">
+               <span style="font-style: italic"
+                  >{{ tour.sights.length }} stops - {{ tour.startDate | date : 'dd/MM/yyyy' }}-{{
+                     tour.endDate | date : 'dd/MM/yyyy'
+                  }}</span
+               >
+               <h2>{{ tour.name }}</h2>
+               <div>{{ tour.description | limitTo : '300' }}</div>
+            </div>
+            <div class="col-md-1">
+               <button
+                  (click)="unlikeTour(tour._id); $event.stopPropagation()"
+                  (mouseover)="unlikeBtn = true"
+                  (mouseout)="unlikeBtn = false"
+                  mat-menu-item
+                  class="unlikeBtn"
+               >
+                  <mat-icon *ngIf="!unlikeBtn" id="like-icon">favorite</mat-icon>
+                  <mat-icon *ngIf="unlikeBtn" id="like-icon">clear</mat-icon>
+               </button>
+            </div>
+         </div>
+      </mat-card>
+   </div>
+</div>

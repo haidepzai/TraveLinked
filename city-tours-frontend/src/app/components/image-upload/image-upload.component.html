@@ -1,0 +1,45 @@
+<div class="example-container">
+   <div class="example-loading-shade" *ngIf="isLoadingResults">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+   </div>
+   <mat-card class="example-card">
+      <form [formGroup]="imgForm">
+         <mat-form-field class="imgUpload" id="uploadForm">
+            <mat-label> Image</mat-label>
+            <!-- TODO: Prüfen ob mit errorStateMatcher -->
+            <ngx-mat-file-input
+               accept=".jpg,.JPG,.png,.PNG,.gif,.GIF"
+               [multiple]="true"
+               (change)="showPreview($event)"
+               formControlName="imageFile"
+               placeholder="Select Image"
+               valuePlaceholder="No image file selected"
+            ></ngx-mat-file-input>
+            <mat-icon matSuffix>folder</mat-icon>
+            <mat-error>
+               <span *ngIf="!imgForm.get('imageFile')!.status !== null">Please select image file</span>
+            </mat-error>
+         </mat-form-field>
+         <div *ngIf="fileSrc.length > 0" class="imgUpload">
+            <img class="preview" src="{{ fileSrc[0] }}" />
+            <button class="del-btn" mat-mini-fab (click)="clear()">
+               <mat-icon id="del-icon">delete_outline</mat-icon>
+            </button>
+         </div>
+         <!-- <mat-form-field class="example-full-width">
+          <mat-label>Image Name</mat-label>
+          <input matInput placeholder="Image Name" formControlName="imageTitle"          >
+          <mat-error>
+            <span *ngIf="!imgForm.get('imageTitle')!.valid && imgForm.get('imageTitle')!.touched">Please enter Image Name</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Image Description</mat-label>
+          <input matInput placeholder="Image Description" formControlName="imageDesc">  
+          <mat-error>
+            <span *ngIf=" !imgForm.get('imageDesc')!.valid && imgForm.get('imageDesc')!.touched">Please enter Image Description</span>
+          </mat-error>
+        </mat-form-field> -->
+      </form>
+   </mat-card>
+</div>

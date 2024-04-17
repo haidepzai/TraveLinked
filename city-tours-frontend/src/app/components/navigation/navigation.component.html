@@ -1,0 +1,206 @@
+<nav id="mainNav" class="navbar navbar-expand-lg py-0 sticky-top" [ngClass]="{ 'navbar-inverse': isScrolled }">
+   <div class="container">
+      <a [routerLink]="['/']" class="navbar-brand" [ngClass]="{ 'brand-inverse': isScrolled }">
+         <img *ngIf="!isScrolled" src="../../../assets/logo/logo_blue.png" alt="logo" width="100%" height="100%" />
+         <img *ngIf="isScrolled" src="../../../assets/logo/logo_white.png" alt="logo" width="100%" height="100%" />
+      </a>
+      <!-- Responsive Menu Start -->
+      <button
+         mat-raised-button
+         color="basic"
+         class="navbar-toggler"
+         type="button"
+         data-toggle="collapse"
+         data-target="#navbarNav"
+         aria-controls="navbarNav"
+         aria-expanded="false"
+         aria-label="Toggle navigation"
+         [matMenuTriggerFor]="menu"
+      >
+         <mat-icon class="btn-icon" id="btn-menu">menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+         <button
+            mat-menu-item
+            (click)="goToProfile()"
+            *ngIf="userStorageService.$loggedIn"
+            (click)="openDialogIfNotLoggedIn()"
+         >
+            <mat-icon class="btn-icon">account_circle</mat-icon>
+            {{ userStorageService.$userName }}
+         </button>
+         <button
+            mat-menu-item
+            (click)="openDialogIfNotLoggedIn()"
+            [routerLink]="userStorageService.$loggedIn ? ['/tour-dashboard/my-tours'] : []"
+         >
+            <mat-icon class="btn-icon">dashboard</mat-icon>
+            {{ 'NAV.TOUR_DASHBOARD' | translate }}
+         </button>
+         <button mat-menu-item [matMenuTriggerFor]="creationMenu">
+            <mat-icon class="btn-icon">add_circle</mat-icon>
+            {{ 'NAV.CREATE' | translate }}
+         </button>
+         <mat-menu #creationMenu="matMenu">
+            <button
+               (click)="openDialogIfNotLoggedIn()"
+               mat-menu-item
+               [routerLink]="userStorageService.$loggedIn ? ['/tour-creation'] : []"
+            >
+               <mat-icon class="btn-icon">moving</mat-icon> {{ 'TOUR' | translate }}
+            </button>
+            <button
+               (click)="openDialogIfNotLoggedIn()"
+               mat-menu-item
+               [routerLink]="userStorageService.$loggedIn ? ['/poi-creation'] : []"
+            >
+               <mat-icon class="btn-icon">place</mat-icon> {{ 'POI' | translate }}
+            </button>
+         </mat-menu>
+         <button
+            mat-menu-item
+            color="basic"
+            [routerLink]="userStorageService.$loggedIn ? ['/chat'] : []"
+            (click)="openDialogIfNotLoggedIn()"
+         >
+            <mat-icon class="btn-icon">message</mat-icon>
+            {{ 'NAV.CHAT' | translate }}
+         </button>
+         <button mat-menu-item *ngIf="!userStorageService.$loggedIn" (click)="openDialog()">
+            <mat-icon class="btn-icon">account_circle</mat-icon>
+            {{ 'NAV.SIGN_IN' | translate }}
+         </button>
+         <button mat-menu-item *ngIf="userStorageService.$loggedIn" (click)="logout()">
+            <mat-icon class="btn-icon">logout</mat-icon>
+            {{ 'NAV.LOGOUT' | translate }}
+         </button>
+         <button mat-menu-item [matMenuTriggerFor]="languageMenu">
+            <mat-icon class="btn-icon">language</mat-icon>
+            {{ 'LANGUAGE.LANGUAGE' | translate }}
+         </button>
+         <mat-menu #languageMenu="matMenu">
+            <button mat-menu-item (click)="translate.use('de')" type="image">
+               <span class="flag-icon flag-icon-de"></span> {{ 'LANGUAGE.GERMAN' | translate }}
+            </button>
+            <button mat-menu-item (click)="translate.use('en')" type="image">
+               <span class="flag-icon flag-icon-gb"></span> {{ 'LANGUAGE.ENGLISH' | translate }}
+            </button>
+         </mat-menu>
+      </mat-menu>
+      <!-- Responsive Menu End -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+         <ul class="navbar-nav">
+            <li class="nav-item mr-4">
+               <div class="input-group input-group-lg mb-4 mt-4">
+                  <button
+                     mat-raised-button
+                     color="basic"
+                     [ngClass]="{ 'button-inverse': isScrolled }"
+                     (click)="openDialogIfNotLoggedIn()"
+                     [routerLink]="userStorageService.$loggedIn ? ['tour-dashboard/my-tours'] : []"
+                  >
+                     {{ 'NAV.TOUR_DASHBOARD' | translate }}
+                     <mat-icon class="btn-icon">dashboard</mat-icon>
+                  </button>
+               </div>
+            </li>
+            <li class="nav-item mr-4">
+               <div class="input-group input-group-lg mb-4 mt-4">
+                  <button
+                     mat-raised-button
+                     color="accent"
+                     type="button"
+                     [matMenuTriggerFor]="tourMenu"
+                     [ngClass]="{ 'button-inverse': isScrolled }"
+                  >
+                     {{ 'NAV.CREATE' | translate }}
+                     <mat-icon class="btn-icon">add_circle</mat-icon>
+                  </button>
+                  <mat-menu #tourMenu="matMenu">
+                     <button
+                        mat-menu-item
+                        color="primary"
+                        [routerLink]="userStorageService.$loggedIn ? ['/tour-creation'] : []"
+                        (click)="openDialogIfNotLoggedIn()"
+                     >
+                        {{ 'NAV.CREATE_TOUR' | translate }}
+                        <mat-icon class="btn-icon">moving</mat-icon>
+                     </button>
+                     <button
+                        mat-menu-item
+                        color="primary"
+                        [routerLink]="userStorageService.$loggedIn ? ['/poi-creation'] : []"
+                        (click)="openDialogIfNotLoggedIn()"
+                     >
+                        {{ 'NAV.CREATE_POI' | translate }}
+                        <mat-icon class="btn-icon">place</mat-icon>
+                     </button>
+                  </mat-menu>
+               </div>
+            </li>
+            <li class="nav-item mr-4">
+               <div class="input-group input-group-lg mb-4 mt-4">
+                  <button
+                     mat-raised-button
+                     color="primary"
+                     (click)="openDialog()"
+                     [ngClass]="{ 'button-inverse': isScrolled }"
+                     *ngIf="!userStorageService.$loggedIn"
+                     id="login-btn"
+                  >
+                     {{ 'NAV.SIGN_IN' | translate }}
+                     <mat-icon class="btn-icon">account_circle</mat-icon>
+                  </button>
+                  <!-- Menu if user is logged in -->
+                  <button
+                     mat-raised-button
+                     color="primary"
+                     type="button"
+                     [matMenuTriggerFor]="profileMenu"
+                     [ngClass]="{ 'button-inverse': isScrolled }"
+                     *ngIf="userStorageService.$loggedIn"
+                     id="login-btn"
+                  >
+                     {{ userStorageService.$userName }}
+                     <mat-icon class="btn-icon">account_circle</mat-icon>
+                  </button>
+                  <mat-menu #profileMenu="matMenu">
+                     <button mat-menu-item color="primary" (click)="goToProfile()">
+                        <mat-icon class="btn-icon">home</mat-icon>
+                        {{ 'NAV.MY_PROFILE' | translate }}
+                     </button>
+                     <button mat-menu-item color="basic" [routerLink]="['chat']">
+                        <mat-icon class="btn-icon">message</mat-icon>
+                        {{ 'NAV.CHAT' | translate }}
+                     </button>
+                     <button mat-menu-item color="warn" (click)="logout()">
+                        <mat-icon class="btn-icon">logout</mat-icon>
+                        {{ 'NAV.LOGOUT' | translate }}
+                     </button>
+                  </mat-menu>
+               </div>
+            </li>
+            <li class="nav-item">
+               <div class="input-group input-group-lg mb-4 mt-4">
+                  <input
+                     type="image"
+                     class="lang-flag"
+                     src="../../../assets/icons/germany-flag.png"
+                     (click)="translate.use('de')"
+                  />
+               </div>
+            </li>
+            <li class="nav-item">
+               <div class="input-group input-group-lg mb-4 mt-4">
+                  <input
+                     type="image"
+                     class="lang-flag"
+                     src="../../../assets/icons/british-flag.png"
+                     (click)="translate.use('en')"
+                  />
+               </div>
+            </li>
+         </ul>
+      </div>
+   </div>
+</nav>

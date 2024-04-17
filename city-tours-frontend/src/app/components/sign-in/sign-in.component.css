@@ -1,0 +1,72 @@
+.mat-dialog-content {
+   overflow: unset;
+}
+
+.sign-in-container {
+   max-width: 300px !important;
+}
+
+.submit-btn {
+   width: 100%;
+}
+
+.switch-form-link {
+   color: #3f51b5;
+   text-decoration: underline;
+   font-weight: bold;
+}
+
+.changeFormTxt {
+   margin-top: 25px;
+   width: 100%;
+}
+
+.sign-in-title {
+   font-weight: bold;
+}
+.close {
+   margin: 0 auto;
+   padding: 0;
+   border-radius: 40px;
+   height: 35px;
+   width: 35px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.close:hover {
+   background-color: rgba(201, 29, 29, 0.733);
+   color: white;
+}
+
+h1.sign-in-title {
+   margin-top: 25px;
+   margin-bottom: 25px;
+}
+
+mat-spinner {
+   margin-right: auto;
+   margin-left: auto;
+}
+
+::ng-deep .loginDialog .contentContainer {
+   padding: 30px;
+}
+
+.password-field {
+   margin-bottom: 75px;
+}
+
+/* Responsive */
+@media only screen and (max-width: 760px) {
+   h1 {
+      font-size: 22px;
+   }
+   h1.register-title {
+      font-size: 18px;
+   }
+   h1.forgot-password-title {
+      font-size: 15px;
+   }
+}

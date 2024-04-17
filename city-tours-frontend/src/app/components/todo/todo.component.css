@@ -1,0 +1,38 @@
+.mat-mini-fab {
+   position: absolute;
+   right: 20px;
+   top: 4px;
+   z-index: 999;
+   box-shadow: none !important;
+}
+
+input:focus {
+   box-shadow: none;
+   outline: none;
+}
+
+.is-complete {
+   text-decoration: line-through;
+}
+
+.del {
+   cursor: pointer;
+   width: 40px;
+   height: 40px;
+   box-shadow: none !important;
+   background-color: transparent !important;
+}
+.del:hover {
+   background-color: rgba(214, 12, 12, 0.877) !important;
+   transition: background-color 300ms linear !important;
+}
+
+#del-icon {
+   margin: 0px !important;
+   padding-top: 5px;
+   color: crimson;
+}
+
+.del:hover #del-icon {
+   color: white !important;
+}

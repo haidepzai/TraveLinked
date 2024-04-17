@@ -1,0 +1,29 @@
+<div class="modal-header">
+   <h1 class="modal-title" id="modal-title">{{ 'PHOTO_UPLOAD' | translate | uppercase }} !</h1>
+   <button type="button" class="close" aria-describedby="modal-title" (click)="onClose(false)">
+      <span aria-hidden="true">&times;</span>
+   </button>
+</div>
+<div class="modal-body">
+   <form [formGroup]="imgForm" (ngSubmit)="onSubmit()" class="upload">
+      <app-image-upload (successUpload)="receiveUploadStatus($event)" #uploadImage></app-image-upload>
+      <mat-form-field class="d-block mt-4">
+         <input
+            type="text"
+            [(ngModel)]="imageDescription"
+            placeholder="{{ 'PLEASE_ENTER_IMG_DESC' | translate }}"
+            id="imageDescription"
+            matInput
+            formControlName="imageDescription"
+         />
+      </mat-form-field>
+      <button id="uploadButton" [disabled]="!imgForm.valid" type="submit" mat-flat-button color="primary">
+         <mat-icon>file_upload</mat-icon>
+      </button>
+   </form>
+</div>
+<div class="modal-footer">
+   <button mat-stroked-button color="primary" (click)="onClose(true)" [disabled]="!successUpload">
+      {{ 'CLOSE' | translate }}
+   </button>
+</div>

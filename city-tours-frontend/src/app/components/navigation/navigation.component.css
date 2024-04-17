@@ -1,0 +1,62 @@
+.mat-raised-button {
+   border-radius: 30px;
+}
+
+.btn-icon {
+   margin-left: 8px;
+   margin-right: -4px;
+}
+
+nav {
+   position: sticky !important;
+   background-color: white;
+}
+
+.navbar {
+   border-bottom: solid 1px lightgrey;
+}
+
+.navbar-inverse {
+   background-color: #3f51b5;
+   transition: background-color 300ms linear;
+   border-bottom: none;
+}
+
+.button-inverse {
+   background-color: white !important;
+   color: #3f51b5 !important;
+}
+
+.brand-inverse {
+   color: white !important;
+}
+
+#btn-menu {
+   margin-left: 0px !important;
+   margin-right: 0px !important;
+}
+
+.navbar-toggler {
+   margin-top: 2vh;
+   margin-bottom: 2vh;
+}
+
+::ng-deep .backdropBackground {
+   background: rgba(0, 0, 0, 0.8) !important;
+}
+
+.sticky-top {
+   z-index: 1000;
+}
+
+.lang-flag {
+   max-height: 40px;
+   filter: grayscale(30%); /* 60% Schwarz-Weiß Filter */
+   -webkit-transition: filter 0.3s;
+   -o-transition: filter 0.3s;
+   transition: filter 0.3s;
+}
+
+.lang-flag:hover {
+   filter: none;
+}

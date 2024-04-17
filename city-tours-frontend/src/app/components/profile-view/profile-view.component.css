@@ -1,0 +1,66 @@
+#profilePicture {
+   margin-top: 10px;
+   border-radius: 50%;
+   margin: 10px 10px 0px;
+   width: 100px;
+   background-size: cover;
+   height: 100px;
+}
+
+.container {
+   min-height: 700px;
+}
+
+.img-xmpl {
+   width: 50px;
+   height: 50px;
+   max-width: 50px;
+   max-height: 50px;
+   background-size: cover;
+   background-position: center;
+}
+
+#tour-card {
+   border-radius: 30px;
+   margin-bottom: 10px !important;
+}
+
+.active-card:hover {
+   background-color: rgba(0, 0, 0, 0.1);
+   transition: background-color 300ms linear;
+   cursor: pointer;
+}
+
+.mat-mini-fab {
+   box-shadow: none !important;
+}
+
+.edit-button,
+.follow-button.not-followed {
+   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.follow-button.is-followed {
+   transition: background-color 300ms linear;
+   background-color: crimson;
+}
+
+.edit-button:hover {
+   transition: background-color 300ms linear;
+   background-color: #3f51b5;
+}
+
+.message-button:hover {
+   transition: background-color 300ms linear;
+   background-color: #5b70e9;
+}
+
+.follow-button:hover {
+   transition: background-color 300ms linear;
+   background-color: crimson;
+}
+
+.follow-button.is-followed:hover {
+   transition: background-color 300ms linear;
+   background-color: rgb(255, 35, 79);
+}

@@ -1,0 +1,23 @@
+<div class="row">
+   <div class="input-group input-group-lg mb-4 mt-4">
+      <input
+         #searchBar
+         ngx-google-places-autocomplete
+         type="text"
+         name="search"
+         class="form-control"
+         placeholder="{{ 'SEARCH.SEARCH' | translate }}"
+         (keydown.enter)="searchLocation(searchBar.value)"
+         (onAddressChange)="searchLocation(searchBar.value)"
+      />
+      <button mat-mini-fab (click)="searchLocation(searchBar.value)" aria-label="search">
+         <mat-icon>search</mat-icon>
+      </button>
+   </div>
+</div>
+<div class="row justify-content-center">
+   <mat-radio-group aria-label="Select an option">
+      <mat-radio-button [checked]="true" value="tours" (change)="changeMode($event.value)">Tours</mat-radio-button>
+      <mat-radio-button value="guides" (change)="changeMode($event.value)">Local Guides</mat-radio-button>
+   </mat-radio-group>
+</div>

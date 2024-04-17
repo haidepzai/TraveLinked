@@ -1,0 +1,21 @@
+version: '3.8' # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+  angular:
+    hostname: localhost
+    #container_name: city-tours-frontend
+    build: city-tours-frontend
+    ports:
+      - "80:80"
+  express: #name of the second service
+    build: city-tours-backend # specify the directory of the Dockerfile
+    ports:
+      - "3000:3000" #specify ports forewarding
+    links:
+      - database
+
+  database: # name of the third service
+    image: mongo # specify image to build container from
+    ports:
+      - "27017:27017" # specify port forewarding

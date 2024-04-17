@@ -1,0 +1,48 @@
+<section id="contact">
+   <div class="container">
+      <div class="row justify-content-end">
+         <button class="close" mat-dialog-close><mat-icon class="btn-icon">close</mat-icon></button>
+      </div>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <div *ngIf="!isLoading">
+         <div class="row mt-2" *ngIf="!isSend">
+            <div class="col-md-12 text-center">
+               <h1>{{ 'SEND_MESSAGE_TO' | translate | uppercase }}:</h1>
+               <h1 style="color: #ff4081">{{ data.user.fullName | uppercase }}</h1>
+            </div>
+         </div>
+
+         <div class="row justify-content-center" *ngIf="isSend">
+            <div class="col alert alert-success" role="alert">
+               <h1 class="text-center">{{ 'MESSAGE_SENT' | translate }}</h1>
+            </div>
+         </div>
+
+         <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" *ngIf="!isSend">
+            <div class="row">
+               <div class="col-md-12 pl-md-5 pr-md-4">
+                  <div class="input-group input-group-lg mb-4">
+                     <textarea
+                        name="message"
+                        id="message"
+                        rows="6"
+                        class="form-control"
+                        placeholder="{{ 'CONTACT.YOUR_MESSAGE' | translate }}"
+                        formControlName="message"
+                     ></textarea>
+                  </div>
+                  <!-- btn-block = ganze Breite -->
+                  <button
+                     id="submit-btn"
+                     class="btn submit-button btn-lg btn-block btn-round"
+                     type="submit"
+                     [disabled]="!contactForm.valid"
+                  >
+                     {{ 'SEND' | translate }}
+                  </button>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+</section>

@@ -1,0 +1,53 @@
+/* Nur normale Eingabefelder ohne Icon */
+.input-group-lg > .form-control {
+   border-radius: 30px;
+}
+/* mit Icons */
+.input-group-lg .input-group-prepend .input-group-text {
+   border-top-left-radius: 30px; /* Oben links */
+   border-bottom-left-radius: 30px; /* Unten links */
+}
+
+.input-group > .custom-select:not(:first-child),
+.input-group > .form-control:not(:first-child) {
+   border-top-left-radius: 0px !important;
+   border-bottom-left-radius: 0px !important;
+}
+
+.btn-round {
+   border-radius: 30px;
+}
+
+.close {
+   margin: 0 auto;
+   padding: 0;
+   border-radius: 40px;
+   height: 35px;
+   width: 35px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.close:hover {
+   background-color: rgba(201, 29, 29, 0.733);
+   color: white;
+}
+
+.icon-span {
+   background-color: #ff4081;
+}
+
+h1 {
+   color: #ff4081;
+}
+
+.submit-button {
+   color: #ff4081;
+   border-color: #ff4081;
+}
+
+.submit-button:hover {
+   color: white;
+   background-color: #ff4081;
+}

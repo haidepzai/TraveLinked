@@ -1,0 +1,45 @@
+.mat-raised-button {
+   border-radius: 30px;
+}
+
+.mat-mini-fab {
+   position: absolute;
+   right: 5px;
+   top: 4px;
+   z-index: 999;
+   box-shadow: none !important;
+}
+
+.container {
+   min-height: 700px;
+}
+
+.card {
+   overflow-y: scroll;
+}
+
+h1 {
+   font-size: 2em;
+   margin-top: 1.5em;
+   margin-bottom: 1.5em;
+}
+
+span.isAdmin {
+   color: green;
+}
+
+.user-name {
+   cursor: pointer;
+}
+
+.user-name:hover {
+   text-decoration: underline;
+}
+
+/* Responsive */
+@media only screen and (max-width: 760px) {
+   .private-chat-btn {
+      margin-left: auto;
+      margin-right: auto;
+   }
+}

@@ -1,0 +1,13 @@
+### Kriha Meeting (25.03)
+	- MEAN ist gut (Überlegung Firebase)
+	- Wenn Firebase verwendet wird kein MongoDB nötig
+	- VM für MongoDB bei Kuhn anfragen
+	- UI /UX beachten 
+	- Doku (Wiki) am besten schon während dem Projekt beginnen
+	- Was ist das Alleinstellungsmerkmal (Nutzersicht betrachten, warum sollte man eigentlich unserer App verwenden)
+	- Projektmanagement Planung (Aufgabenverteilung Issue-Tracker, Tool verwenden ?)
+	- Wenn möglich Responsive
+	- Alleinstellungsmerkmal: Individualtourismus: Sozialer Tourismus mit Einheimischen in Kontakt kommen fördern
+	- Menschen kennen lernen während der Reise (Personen x,y,z befinden sich auch in deiner Stadt)
+	- Mundologia: App für Reiseanbieter zum Planen von Reisen
+	- User-Test (kleiner User-Test reicht z.B. 5-6 Leute zum Testen)
